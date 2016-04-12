@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/classes/building.js"></script>
+    <script src="js/classes/game.js"></script>
+    <script src="js/classes/monster.js"></script>
+  </head>
+  <body ng-app="GameApp" ng-controller="GameController">
+    <ion-side-menus>
+      <!-- Left menu -->
+      <ion-side-menu side="left">
+        TEST LEFT
+      </ion-side-menu>
+
+      <ion-side-menu-content>
+        <ion-header-bar class="bar-dark">
+          <button class="button button-icon" ng-click="toggleLeftSideMenu()">
+            <i class="icon ion-navicon"></i>
+          </button>
+          <h1 class="title">Minion Village</h1>
+          <button class="button button-icon" ng-click="toggleRightSideMenu()">
+            <i class="icon ion-chatbox"></i>
+          </button>
+        </ion-header-bar>
+        <ion-nav-view></ion-nav-view>
+      </ion-side-menu-content>
+
+      <!-- Right menu -->
+      <ion-side-menu side="right">
+        TEST RIGHT
+      </ion-side-menu>
+
+    </ion-side-menus>
+  </body>
+
+
+  <script id="templates/home.html" type="text/ng-template">
+    <ion-tabs class="tabs-icon-top tabs-positive">
+      <ion-tab title="Buildings" icon="ion-home" href="#/buildings">
+        <ion-nav-view name="buildings-tab"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Minions" icon="ion-person-stalker" href="#/minions">
+        <ion-nav-view name="minions-tab"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Missions" icon="ion-map" href="#/missions">
+        <ion-nav-view name="missions-tab"></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
+  </script>
+
+  <script id="templates/buildings.html" type="text/ng-template">
+    <ion-view view-title="Buildings">
+      <ion-content class="padding">
+        <p>
+          <a class="button icon icon-right ion-chevron-right" href="#">Buildings</a>
+        </p>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="templates/minions.html" type="text/ng-template">
+    <ion-view view-title="minions">
+      <ion-content class="padding">
+        <p>
+          <a class="button icon icon-right ion-chevron-right" href="#">minions</a>
+        </p>
+      </ion-content>
+    </ion-view>
+  </script>
+  <script id="templates/missions.html" type="text/ng-template">
+    <ion-view view-title="missions">
+      <ion-content class="padding">
+        <p>
+          <a class="button icon icon-right ion-chevron-right" href="#">missions</a>
+        </p>
+      </ion-content>
+    </ion-view>
+  </script>
+
+</html>
