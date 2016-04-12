@@ -53,6 +53,7 @@ Game.prototype.Init = function(scope) {
 
   // Minions
   this.minionOrder = 0;
+  this.minionImageUrl = this.getMinionImageUrl();
   this.populationCap = 0;
 
   this.minions = {};
@@ -250,6 +251,9 @@ Game.prototype.addMinions = function(minions) {
 
     this.minionOrder = (this.minionOrder + 1) % 7;
   }
+  if (minionsAdded) {
+    this.minionImageUrl = this.getMinionImageUrl();
+  }
   return minionsAdded;
 };
 
@@ -426,6 +430,20 @@ Game.prototype.getMonsterStatSum = function(buildingName, stat) {
     }
   }
   return sum;
+};
+
+Game.prototype.getMinionImageUrl = function() {
+  var name = " Minion";
+  if (this.minionOrder < 3) {
+    name = "Melee" + name;
+  }
+  if (this.minionOrder < 6) {
+    name = "Caster" + name;
+  }
+  else {
+    name = "Siege" + name;
+  }
+  return getImageUrl(name, "monster");
 };
 
 Game.prototype.applyCasualties = function(buildingName, casualty) {

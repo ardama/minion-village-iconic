@@ -78,7 +78,9 @@ var GameApp = angular.module('GameApp', ['ionic'])
 
    $urlRouterProvider.otherwise("/minions");
 
-}).controller('GameController', ['$scope', '$sce', '$ionicSideMenuDelegate', '$ionicTabsDelegate', function ($scope, $sce, $ionicSideMenuDelegate, $ionicTabsDelegate) {
+}).controller('GameController', function ($scope, $sce, $ionicSideMenuDelegate,
+                                          $ionicTabsDelegate, $timeout, $ionicScrollDelegate,
+                                          $ionicPopover) {
   $scope.version = version;
   window.$scope = $scope;
   $scope.g = new Game($scope);
@@ -92,9 +94,60 @@ var GameApp = angular.module('GameApp', ['ionic'])
   $scope.selectTabWithIndex = function(index) {
     $ionicTabsDelegate.select(index);
   };
-}]);
+  $scope.getImageUrl = function(name, folder) {
+    getImageUrl(name, folder)
+  };
+  $scope.$watch(function() {
+    return $scope.g.timers.minion;
+  }, function(oldValue, newValue) {
+    if (window.minionTimer)
+      window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
+  });
 
 
-window.onload = function() {
+
+});
+
+
+$(window).load(function() {
   $scope.g.start();
+
+  minionTimer = {
+    bg: null,
+    ctx: null,
+    imd: null,
+    circ: Math.PI * 2,
+    quart: Math.PI / 2,
+    draw: null,
+    width: 10
+  };
+
+  minionTimer.bg = document.getElementById('minion-timer-canvas');
+  minionTimer.ctx = minionTimer.bg.getContext('2d');
+
+  minionTimer.ctx.beginPath();
+  minionTimer.ctx.strokeStyle = '#333';
+  minionTimer.ctx.lineCap = 'square';
+  minionTimer.ctx.closePath();
+  minionTimer.ctx.fill();
+  minionTimer.ctx.lineWidth = minionTimer.width;
+
+  minionTimer.imd = minionTimer.ctx.getImageData(0, 0, 240, 240);
+
+  minionTimer.draw = function(current) {
+      this.ctx.putImageData(this.imd, 0, 0);
+      this.ctx.beginPath();
+      this.ctx.arc(120, 120, 120 - this.width / 2, -(this.quart), ((this.circ) * current) - this.quart, false);
+      this.ctx.stroke();
+  }
+});
+
+
+
+var getImageUrl = function(name, folder) {
+  if (folder)
+    folder += '/';
+  else
+    folder = '';
+  return 'img/' + folder + name.split(' ').join('_').split('\'').join('').split('.').join('') + '.png';
 };
