@@ -19,7 +19,7 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "../www/lib/ionic/scss/ionic";
 
 /////////////////////////////////////////////////////////
 // VARIABLES /////////////////////////////////////////////
@@ -43,7 +43,7 @@ $tertiary-2: #29BF65;
 $tertiary-3: #00903A;
 $tertiary-4: #00712E;
 
-$gold: #FFCD3A;
+$gold: #FFE875;
 $knowledge: #33cd5f;
 $favor: #6B46E5;
 
@@ -92,6 +92,8 @@ $light-text-primary: rgba(255,255,255, 1) !default;
 $light-text-secondary: rgba(255,255,255,.70) !default;
 $light-text-tertiary: rgba(255,255,255,.35) !default;
 $light-text-disabled: rgba(255,255,255,.20) !default;
+
+$box-shadow: rgba(0,0,0,.75) !default;
 
 /////////////////////////////////////////////////////////
 // GENERIC ELEMENTS /////////////////////////////////////
@@ -167,36 +169,18 @@ ion-header-bar h6, {
   border-radius: 50%;
 }
 
-#stats-container {
+#population-container {
+  float: left;
+  width: 100%;
   padding: 0 10px;
   line-height: 28px;
   font-size: 20px;
 }
 
-#stat-icon-container {
-  float: left;
-  width: 12%;
-  text-align: center;
-}
-
-#stat-value-container {
-  float: left;
-  width: 40%;
-}
-
-#stat-rate-container {
-  float: left;
-  width: 46%;
-
-  text-align: right;
-}
-
 #population-stats {
   float: left;
   width: 100%;
-  margin-bottom: 24px;
-
-  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 #population-bar {
@@ -242,18 +226,114 @@ ion-header-bar h6, {
   padding: 2px;
 }
 
+#stats-container {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  line-height: 28px;
+  font-size: 20px;
+}
+
+#stat-icon-container {
+  float: left;
+  width: 12%;
+  text-align: center;
+}
+
+#stat-value-container {
+  float: left;
+  width: 40%;
+}
+
+#stat-rate-container {
+  float: left;
+  width: 46%;
+
+  color: $light-text-disabled;
+  text-align: right;
+}
+
+#gear-container {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  line-height: 34px;
+  font-size: 20px;
+}
+
+#gear-image-container {
+  float: left;
+  width: 14%;
+  text-align: center;
+}
+
+.gear-image {
+  float: left;
+  margin: 4px 3px 2px;
+  border-radius: 50%;
+  border: 2px solid $gray-mid-0;
+  overflow: hidden;
+}
+
+.gear-image img {
+  float: left;
+  width: 24px;
+}
+
+#gear-container[data-active="machete"] .gear-image[data-item="machete"],
+#gear-container[data-active="talisman"] .gear-image[data-item="talisman"],
+#gear-container[data-active="blade"] .gear-image[data-item="blade"],
+#gear-container[data-active="ring"] .gear-image[data-item="ring"],
+#gear-container[data-active="shield"] .gear-image[data-item="shield"] {
+  border-color: $primary-0;
+}
+
+.gear-rate {
+  visibility: hidden;
+}
+
+#gear-container[data-active="machete"] .gear-rate[data-item="machete"],
+#gear-container[data-active="talisman"] .gear-rate[data-item="talisman"],
+#gear-container[data-active="blade"] .gear-rate[data-item="blade"],
+#gear-container[data-active="ring"] .gear-rate[data-item="ring"],
+#gear-container[data-active="shield"] .gear-rate[data-item="shield"] {
+  visibility: visible;
+}
+
+#gear-value-container {
+  float: left;
+  width: 40%;
+
+  color: $light-text-secondary;
+}
+
+#gear-rate-container {
+  float: left;
+  width: 44%;
+
+  color: $light-text-disabled;
+  text-align: right;
+}
+
+
+
+
 /////////////////////////////////////////////////////////
 // OTHER ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 .fa.fa-database {
-  color: $white;
+  color: $gold;
   font-size: .8em;
 }
-
 .fa.fa-lightbulb-o {
-  color: $white;
+  color: $gold;
 }
-
 .fa.fa-bolt {
-  color: $white;
+  color: $gold;
+}
+.fa.fa-user {
+  color: $gray-mid-9;
+}
+.fa.fa-home {
+  color: $gray-mid-9;
 }

@@ -37,24 +37,24 @@
             </canvas>
             <img id="minion-timer-image" ng-src="{{g.minionImageUrl}}"/>
           </div>
-          <div id="stats-container">
-            <div id="population-container">
-              <div id="population-bar">
-                <div id="population-bar-fill" style="width:{{g.getPopulationPercent()}}%">
-                </div>
-              </div>
-              <div id="population-stats">
-                <div id="minions-stat-container">
-                  <i class="icon fa fa-user"></i>
-                  {{g.minionCounts.all}}
-                </div>
-                <div id="population-slash">/</div>
-                <div id="population-stat-container">
-                  {{g.buildings.hut.capacity}}
-                  <i class="icon fa fa-home"></i>
-                </div>
+          <div id="population-container">
+            <div id="population-bar">
+              <div id="population-bar-fill" style="width:{{g.getPopulationPercent()}}%">
               </div>
             </div>
+            <div id="population-stats">
+              <div id="minions-stat-container">
+                <i class="icon fa fa-user"></i>
+                {{g.minionCounts.all}}
+              </div>
+              <div id="population-slash">/</div>
+              <div id="population-stat-container">
+                {{g.buildings.hut.capacity}}
+                <i class="icon fa fa-home"></i>
+              </div>
+            </div>
+          </div>
+          <div id="stats-container">
             <div id="stat-icon-container">
               <i class="icon fa fa-database"></i></br>
               <i class="icon fa fa-lightbulb-o"></i></br>
@@ -80,6 +80,59 @@
               </div>
               <div id="favor-rate-container">
                 {{prettyInt(g.favorRate)}} /s
+              </div>
+            </div>
+          </div>
+          <div id="gear-container" data-active="{{g.buildings.workshop.data.type}}">
+            <div id="gear-image-container">
+              <div class="gear-image" data-item="machete">
+                <img src="img/item/grayscale/Hunter's_Machete.png">
+              </div>
+              <div class="gear-image" data-item="talisman">
+                <img src="img/item/grayscale/Hunter's_Talisman.png">
+              </div>
+              <div class="gear-image" data-item="blade">
+                <img src="img/item/grayscale/Doran's_Blade.png">
+              </div>
+              <div class="gear-image" data-item="ring">
+                <img src="img/item/grayscale/Doran's_Ring.png">
+              </div>
+              <div class="gear-image" data-item="shield">
+                <img src="img/item/grayscale/Doran's_Shield.png">
+              </div>
+            </div>
+            <div id="gear-value-container">
+              <div id="machetes-container">
+                {{prettyInt(g.gear.machete)}}
+              </div>
+              <div id="talismans-container">
+                {{prettyInt(g.gear.talisman)}}
+              </div>
+              <div id="blades-container">
+                {{prettyInt(g.gear.blade)}}
+              </div>
+              <div id="rings-container">
+                {{prettyInt(g.gear.ring)}}
+              </div>
+              <div id="shields-container">
+                {{prettyInt(g.gear.shield)}}
+              </div>
+            </div>
+            <div id="gear-rate-container">
+              <div class="gear-rate" data-item="machete">
+                {{prettyInt(g.gearRate)}} /s
+              </div>
+              <div class="gear-rate" data-item="talisman">
+                {{prettyInt(g.gearRate)}} /s
+              </div>
+              <div class="gear-rate" data-item="blade">
+                {{prettyInt(g.gearRate)}} /s
+              </div>
+              <div class="gear-rate" data-item="ring">
+                {{prettyInt(g.gearRate)}} /s
+              </div>
+              <div class="gear-rate" data-item="shield">
+                {{prettyInt(g.gearRate)}} /s
               </div>
             </div>
           </div>

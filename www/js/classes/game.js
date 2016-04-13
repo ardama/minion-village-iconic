@@ -29,7 +29,7 @@ Game.prototype.Init = function(scope) {
   this.favorRateBase = 0;
   this.favorRateBonus = 1;
 
-  this.gear = {machetes: 0, talismans: 0, blades: 0, rings: 0, shields: 0};
+  this.gear = {machete: 0, talisman: 0, blade: 0, ring: 0, shield: 0};
   this.gearRate = 0;
   this.gearRateBase = 0;
   this.gearRateBonus = 1;
@@ -352,6 +352,7 @@ Game.prototype.launchRaid = function() {
 Game.prototype.moveAllMinions = function(currentBuilding, newBuilding) {
   for (var i = 0; i < MINION_TYPES.length; i++) {
     var type = MINION_TYPES[i];
+    this.moveMinions(Infinity, type, currentBuilding, newBuilding);
   }
 };
 
@@ -360,8 +361,8 @@ Game.prototype.getExpeditionOutcome = function() {
   var skill = this.getMinionStatSum(EXPEDITION, SKILL);
 
   // TODO: balance
-  var casualty = Math.min(1, level ^ 2 / strength);
-  var loot = skill * (120 + 2 * level + level ^ 2) * (1 - casualty);
+  var casualty = Math.min(1, this.expeditionLevel ^ 2 / strength);
+  var loot = skill * (120 + 2 * this.expeditionLevel + this.expeditionLevel ^ 2) * (1 - casualty);
 
   this.applyCasualties(EXPEDITION, casualty);
   this.addGold(loot);
@@ -387,8 +388,8 @@ Game.prototype.getRaidOutcome = function() {
   var damage = this.getMinionStatSum(RAID, DAMAGE) + this.getMonsterStatSum(RAID, DAMAGE);
   var durability = this.getMinionStatSum(RAID, DURABILITY) + this.getMonsterStatSum(RAID, DURABILITY);
 
-  var casualty = Math.min(1, level ^ 2 / durability);
-  var loot = damage * (180 + 2 * level + level ^ 2) * (1 - casualty);
+  var casualty = Math.min(1, this.raidLevel ^ 2 / durability);
+  var loot = damage * (180 + 2 * this.raidLevel + this.raidLevel ^ 2) * (1 - casualty);
 
   this.applyCasualties(RAID, casualty);
   this.addGold(loot);
@@ -398,8 +399,8 @@ Game.prototype.getWaveOutcome = function() {
   var damage = this.getMinionStatSum(TOWER, DAMAGE) + this.getMonsterStatSum(TOWER, DAMAGE);
   var durability = this.getMinionStatSum(TOWER, DURABILITY) + this.getMonsterStatSum(TOWER, DAMAGE);
 
-  var casualty = Math.min(1, level ^ 2 / durability);
-  var loot = damage * (150 + 2 * level + level ^ 2) * (1 - casualty);
+  var casualty = Math.min(1, this.waveLevel ^ 2 / durability);
+  var loot = damage * (150 + 2 * this.waveLevel + this.waveLevel ^ 2) * (1 - casualty);
 
   this.applyCasualties(TOWER, casualty);
   this.addGold(loot);
@@ -432,6 +433,7 @@ Game.prototype.getMonsterStatSum = function(buildingName, stat) {
 };
 
 Game.prototype.getPopulationPercent = function() {
+  if (!this.buildings[HUT].capacity) return 100;
   var percent = 100 * this.minionCounts.all / this.buildings[HUT].capacity;
   return percent.toFixed(3);
 };

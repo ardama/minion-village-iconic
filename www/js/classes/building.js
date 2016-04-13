@@ -64,7 +64,7 @@ Building.initializeBuildings = function(game) {
   buildings[WORKSHOP] = new Building(
     game, WORKSHOP, 2,
     {gold: 100, knowledge: 0, favor: 0},
-    {rate: 1, type: MACHETES}
+    {rate: 1, type: MACHETE}
   );
   buildings[LIBRARY] = new Building(
     game, LIBRARY, 2,

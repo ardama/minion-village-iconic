@@ -1,4 +1,4 @@
-var version = '0.0.8';
+var version = '0.0.9';
 
 // Minion types
 var MELEE = 'melee';
@@ -15,11 +15,11 @@ var STRENGTH = 'strength';
 var SKILL = 'skill';
 
 // Mission gear
-var MACHETES = 'machetes';
-var TALISMANS = 'talismans';
-var BLADES = 'blades';
-var RINGS = 'rings';
-var SHIELDS = 'shields';
+var MACHETE = 'machete';
+var TALISMAN = 'talisman';
+var BLADE = 'blade';
+var RING = 'ring';
+var SHIELD = 'shield';
 
 
 // Game constants
