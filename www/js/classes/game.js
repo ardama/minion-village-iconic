@@ -6,7 +6,7 @@ Game.prototype.Init = function(scope) {
   this.scope = scope;
 
   // Timing
-  this.fps = 20;
+  this.fps = 60;
   this.stepSize = 1 / this.fps;
   this.time = 0
   this.stepStart = new Date();
@@ -54,7 +54,6 @@ Game.prototype.Init = function(scope) {
   // Minions
   this.minionOrder = 0;
   this.minionImageUrl = this.getMinionImageUrl();
-  this.populationCap = 0;
 
   this.minions = {};
   this.minions[HUT] = {melee: 0, caster: 0, siege: 0, all: 0};
@@ -215,7 +214,7 @@ Game.prototype.addMinions = function(minions) {
   var minionsAdded = 0;
 
   // Add full sets of minions
-  var sets = Math.floor(Math.min(minions / 7, (this.populationCap - this.minionCounts.all) / 7));
+  var sets = Math.floor(Math.min(minions / 7, (this.buildings[HUT].capacity - this.minionCounts.all) / 7));
   if (sets > 0) {
     this.minions[HUT].melee += 3 * sets;
     this.minions[HUT].caster += 3 * sets;
@@ -432,15 +431,18 @@ Game.prototype.getMonsterStatSum = function(buildingName, stat) {
   return sum;
 };
 
+Game.prototype.getPopulationPercent = function() {
+  var percent = 100 * this.minionCounts.all / this.buildings[HUT].capacity;
+  return percent.toFixed(3);
+};
+
 Game.prototype.getMinionImageUrl = function() {
   var name = " Minion";
   if (this.minionOrder < 3) {
     name = "Melee" + name;
-  }
-  if (this.minionOrder < 6) {
+  } else if (this.minionOrder < 6) {
     name = "Caster" + name;
-  }
-  else {
+  } else {
     name = "Siege" + name;
   }
   return getImageUrl(name, "monster");

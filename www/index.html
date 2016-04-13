@@ -7,10 +7,11 @@
 
     <script src="js/vendor/jquery.min.js"></script>
 
-    <!-- <link href="css/ionic.app.css" rel="stylesheet">
-    <script src="lib/ionic/js/ionic.bundle.js"></script> -->
 
-    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <!-- <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"> -->
+    <!-- <script src="lib/ionic/js/ionic.bundle.js"></script> -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -26,25 +27,73 @@
   <body ng-app="GameApp" ng-controller="GameController">
     <ion-side-menus>
       <!-- Left menu -->
-      <ion-side-menu expose-aside-when="large">
-        <ion-header-bar class="bar-assertive">
+      <ion-side-menu id="stats-sidemenu" expose-aside-when="large">
+        <ion-header-bar class="header-bar-primary">
           <h1 class="title">Stats</h1>
         </ion-header-bar>
         <ion-content>
-          <div id="minion-timer-container" style="float:left">
-            <canvas id="minion-timer-canvas" width="240" height="240"></canvas>
+          <div id="minion-timer-container">
+            <canvas id="minion-timer-canvas" width="240" height="240">
+            </canvas>
+            <img id="minion-timer-image" ng-src="{{g.minionImageUrl}}"/>
+          </div>
+          <div id="stats-container">
+            <div id="population-container">
+              <div id="population-bar">
+                <div id="population-bar-fill" style="width:{{g.getPopulationPercent()}}%">
+                </div>
+              </div>
+              <div id="population-stats">
+                <div id="minions-stat-container">
+                  <i class="icon fa fa-user"></i>
+                  {{g.minionCounts.all}}
+                </div>
+                <div id="population-slash">/</div>
+                <div id="population-stat-container">
+                  {{g.buildings.hut.capacity}}
+                  <i class="icon fa fa-home"></i>
+                </div>
+              </div>
+            </div>
+            <div id="stat-icon-container">
+              <i class="icon fa fa-database"></i></br>
+              <i class="icon fa fa-lightbulb-o"></i></br>
+              <i class="icon fa fa-bolt"></i>
+            </div>
+            <div id="stat-value-container">
+              <div id="gold-container">
+                {{prettyInt(g.gold)}}
+              </div>
+              <div id="knowledge-container">
+                {{prettyInt(g.knowledge)}}
+              </div>
+              <div id="favor-container">
+                {{prettyInt(g.favor)}}
+              </div>
+            </div>
+            <div id="stat-rate-container">
+              <div id="gold-rate-container">
+                {{prettyInt(g.goldRate)}} /s
+              </div>
+              <div id="knowledge-rate-container">
+                {{prettyInt(g.knowledgeRate)}} /s
+              </div>
+              <div id="favor-rate-container">
+                {{prettyInt(g.favorRate)}} /s
+              </div>
+            </div>
           </div>
         </ion-content>
       </ion-side-menu>
 
       <ion-side-menu-content>
-        <ion-header-bar class="bar-dark">
+        <ion-header-bar class="header-bar-dark">
           <button class="button button-icon" ng-click="toggleLeftSideMenu()">
             <i class="icon ion-navicon"></i>
           </button>
           <h1 class="title">Minion Village</h1>
           <button class="button button-icon" ng-click="toggleRightSideMenu()">
-            <i class="icon ion-chatbox"></i>
+            <i class="icon fa fa-envelope-o"></i>
           </button>
         </ion-header-bar>
         <ion-nav-view></ion-nav-view>
@@ -61,14 +110,14 @@
 
 
   <script id="templates/home.html" type="text/ng-template">
-    <ion-tabs class="tabs-icon-top tabs-dark">
-      <ion-tab title="Buildings" icon="ion-home" href="#/buildings">
+    <ion-tabs class="tabs-icon-top tabs-primary">
+      <ion-tab title="Buildings" icon="fa fa-building" href="#/buildings">
         <ion-nav-view name="buildings-tab"></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Minions" icon="ion-person-stalker" href="#/minions">
+      <ion-tab title="Minions" icon="fa fa-users" href="#/minions">
         <ion-nav-view name="minions-tab"></ion-nav-view>
       </ion-tab>
-      <ion-tab title="Missions" icon="ion-map" href="#/missions">
+      <ion-tab title="Missions" icon="fa fa-map" href="#/missions">
         <ion-nav-view name="missions-tab"></ion-nav-view>
       </ion-tab>
 

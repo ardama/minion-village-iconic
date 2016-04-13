@@ -20,3 +20,240 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+/////////////////////////////////////////////////////////
+// VARIABLES /////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+$primary-0: #0484A2;
+$primary-1: #4AA4B9;
+$primary-2: #2890A8;
+$primary-3: #03657C;
+$primary-4: #024F62;
+
+$secondary-0: #1141AF;
+$secondary-1: #5777C2;
+$secondary-2: #355BB4;
+$secondary-3: #0D3186;
+$secondary-4: #082569;
+
+$tertiary-0: #00BB4C;
+$tertiary-1: #4ECB80;
+$tertiary-2: #29BF65;
+$tertiary-3: #00903A;
+$tertiary-4: #00712E;
+
+$gold: #FFCD3A;
+$knowledge: #33cd5f;
+$favor: #6B46E5;
+
+$black: #000;
+$white: #fff;
+
+$gray-light-0: #a0a0a0 !default;
+$gray-light-1: #a8a8a8 !default;
+$gray-light-2: #b0b0b0 !default;
+$gray-light-3: #b8b8b8 !default;
+$gray-light-4: #c0c0c0 !default;
+$gray-light-5: #d8d8d8 !default;
+$gray-light-6: #e0e0e0 !default;
+$gray-light-7: #e8e8e8 !default;
+$gray-light-8: #fafafa !default;
+$gray-light-9: #fff !default;
+
+$gray-mid-0: #606060 !default;
+$gray-mid-1: #666 !default;
+$gray-mid-2: #707070 !default;
+$gray-mid-3: #777 !default;
+$gray-mid-4: #808080 !default;
+$gray-mid-5: #888 !default;
+$gray-mid-6: #909090 !default;
+$gray-mid-7: #999 !default;
+$gray-mid-8: #a0a0a0 !default;
+$gray-mid-9: #a8a8a8 !default;
+
+$gray-dark-0: #080808 !default;
+$gray-dark-1: #101010 !default;
+$gray-dark-2: #1a1a1a !default;
+$gray-dark-3: #202020 !default;
+$gray-dark-4: #222 !default;
+$gray-dark-5: #282828 !default;
+$gray-dark-6: #333 !default;
+$gray-dark-7: #383838 !default;
+$gray-dark-8: #444 !default;
+$gray-dark-9: #484848 !default;
+
+$dark-text-primary: rgba(0,0,0,.87) !default;
+$dark-text-secondary: rgba(0,0,0,.54) !default;
+$dark-text-disabled: rgba(0,0,0,.38) !default;
+$dark-divider: rgba(0,0,0,.12) !default;
+
+$light-text-primary: rgba(255,255,255, 1) !default;
+$light-text-secondary: rgba(255,255,255,.70) !default;
+$light-text-tertiary: rgba(255,255,255,.35) !default;
+$light-text-disabled: rgba(255,255,255,.20) !default;
+
+/////////////////////////////////////////////////////////
+// GENERIC ELEMENTS /////////////////////////////////////
+/////////////////////////////////////////////////////////
+body {
+}
+
+/////////////////////////////////////////////////////////
+// ION ELEMENTS /////////////////////////////////////////
+/////////////////////////////////////////////////////////
+ion-header-bar h1,
+ion-header-bar h1,
+ion-header-bar h3,
+ion-header-bar h4,
+ion-header-bar h5,
+ion-header-bar h6, {
+  color: inherit;
+}
+
+.header-bar-primary {
+  background-color: $primary-0;
+  color: $light-text-primary;
+}
+
+.tabs-primary .tab-nav {
+  background-color: $primary-0;
+  color: $light-text-primary;
+}
+
+.tab-item .icon.fa {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.tab-item-active {
+  background-color: $primary-3;
+}
+
+/////////////////////////////////////////////////////////
+// SIDEMENU /////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+#stats-sidemenu {
+  background-color: $gray-dark-4;
+  color: $light-text-primary;
+}
+#minion-timer-container {
+  position: relative;
+  width: 100%;
+
+  padding: 20px;
+}
+
+#minion-timer-canvas {
+  position: relative;
+  z-index: 10;
+  display: block;
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#minion-timer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  padding: 30px;
+
+  border-radius: 50%;
+}
+
+#stats-container {
+  padding: 0 10px;
+  line-height: 28px;
+  font-size: 20px;
+}
+
+#stat-icon-container {
+  float: left;
+  width: 12%;
+  text-align: center;
+}
+
+#stat-value-container {
+  float: left;
+  width: 40%;
+}
+
+#stat-rate-container {
+  float: left;
+  width: 46%;
+
+  text-align: right;
+}
+
+#population-stats {
+  float: left;
+  width: 100%;
+  margin-bottom: 24px;
+
+  font-size: 20px;
+}
+
+#population-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: $gray-light-7;
+
+  border-radius: 12px;
+  overflow: hidden;
+
+  margin: 5px 0 3px;
+}
+
+#population-bar-fill {
+  position: absolute;
+  height: 100%;
+  background-color: $primary-0;
+}
+
+#minions-stat-container {
+  float: left;
+  width: 46%;
+  margin-left: 2%;
+}
+
+#population-slash {
+  float: left;
+  width: 4%;
+
+  text-align: center;
+}
+
+#population-stat-container {
+  float: left;
+  width: 46%;
+  margin-right: 2%;
+
+  text-align: right;
+}
+
+#population-stats i {
+  padding: 2px;
+}
+
+/////////////////////////////////////////////////////////
+// OTHER ////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+.fa.fa-database {
+  color: $white;
+  font-size: .8em;
+}
+
+.fa.fa-lightbulb-o {
+  color: $white;
+}
+
+.fa.fa-bolt {
+  color: $white;
+}

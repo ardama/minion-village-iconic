@@ -1,4 +1,4 @@
-var version = '0.0.6';
+var version = '0.0.8';
 
 // Minion types
 var MELEE = 'melee';
@@ -104,14 +104,23 @@ var GameApp = angular.module('GameApp', ['ionic'])
       window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
   });
 
+  $scope.prettyInt = function (num, fixed) {
+    return prettyIntBig(num, fixed);
+  };
+  $scope.prettyIntCompact = function (num, fixed) {
+    return prettyIntBigCompact(num, fixed);
+  };
+
+
 
 
 });
 
+$(document).ready(function() {
+  $scope.g.start();
+});
 
 $(window).load(function() {
-  $scope.g.start();
-
   minionTimer = {
     bg: null,
     ctx: null,
@@ -126,7 +135,7 @@ $(window).load(function() {
   minionTimer.ctx = minionTimer.bg.getContext('2d');
 
   minionTimer.ctx.beginPath();
-  minionTimer.ctx.strokeStyle = '#333';
+  minionTimer.ctx.strokeStyle = '#e8e8e8';
   minionTimer.ctx.lineCap = 'square';
   minionTimer.ctx.closePath();
   minionTimer.ctx.fill();
@@ -151,3 +160,66 @@ var getImageUrl = function(name, folder) {
     folder = '';
   return 'img/' + folder + name.split(' ').join('_').split('\'').join('').split('.').join('') + '.png';
 };
+
+var LONG_NUMBER_NAMES = [
+  'million',
+  'billion',
+  'trillion',
+  'quadrillion',
+  'quintillion',
+  'sextillion',
+  'septillion',
+  'octillion',
+  'nonillion',
+  'decillion',
+  'undecillion',
+  'duodecillion',
+  'tredecillion'
+];
+var SHORT_NUMBER_NAMES = [
+  'm',
+  'b',
+  't',
+  'qd',
+  'qt',
+  'sx',
+  'sp',
+  'o',
+  'n',
+  'd',
+  'ud',
+  'dd',
+  'td'
+];
+var prettyIntBig = function(num, fixed) {
+  fixed = fixed || 2;
+  var n = Math.pow(10, fixed);
+  var a = num;
+  var b = -2;
+  while (a >= 1000) {
+    a /= 1000;
+    b++;
+  }
+  if (b >= 0 && b < LONG_NUMBER_NAMES.length) {
+    return (Math.floor(a * n) / n).toFixed(fixed) + ' ' + LONG_NUMBER_NAMES[b];
+  }
+  return prettyInt(num);
+}
+var prettyIntBigCompact = function(num, fixed) {
+  fixed = fixed || 2;
+  var n = Math.pow(10, fixed);
+  var a = num;
+  var b = -2;
+  while (a >= 1000) {
+    a /= 1000;
+    b++;
+  }
+  if (b >= 0 && b < SHORT_NUMBER_NAMES.length) {
+    return (Math.floor(a * n) / n).toFixed(fixed) + SHORT_NUMBER_NAMES[b];
+  }
+  return prettyInt(num);
+}
+var prettyInt = function(num) {
+  var s = num >= 1000 ? Math.floor(num) : Math.round(num * 10) / 10;
+  return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
