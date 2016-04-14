@@ -28,7 +28,7 @@
     <ion-side-menus>
       <!-- Left menu -->
       <ion-side-menu id="stats-sidemenu" expose-aside-when="large">
-        <ion-header-bar class="header-bar-primary">
+        <ion-header-bar class="header-bar-dark">
           <h1 class="title">Stats</h1>
         </ion-header-bar>
         <ion-content>
@@ -37,7 +37,7 @@
             </canvas>
             <img id="minion-timer-image" ng-src="{{g.minionImageUrl}}"/>
           </div>
-          <div id="population-container">
+          <div id="population-container" class="sidemenu-container">
             <div id="population-bar">
               <div id="population-bar-fill" style="width:{{g.getPopulationPercent()}}%">
               </div>
@@ -54,10 +54,10 @@
               </div>
             </div>
           </div>
-          <div id="stats-container">
+          <div id="stats-container" class="sidemenu-container">
             <div id="stat-icon-container">
               <i class="icon fa fa-database"></i></br>
-              <i class="icon fa fa-lightbulb-o"></i></br>
+              <i class="icon fa fa-flask"></i></br>
               <i class="icon fa fa-bolt"></i>
             </div>
             <div id="stat-value-container">
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div id="gear-container" data-active="{{g.buildings.workshop.data.type}}">
+          <div id="gear-container" class="sidemenu-container" data-active="{{g.buildings.workshop.data.type}}">
             <div id="gear-image-container">
               <div class="gear-image" data-item="machete">
                 <img src="img/item/grayscale/Hunter's_Machete.png">
@@ -140,7 +140,7 @@
       </ion-side-menu>
 
       <ion-side-menu-content>
-        <ion-header-bar class="header-bar-dark">
+        <ion-header-bar class="header-bar-primary">
           <button class="button button-icon" ng-click="toggleLeftSideMenu()">
             <i class="icon ion-navicon"></i>
           </button>
@@ -161,7 +161,7 @@
     </ion-side-menus>
   </body>
 
-
+  <!-- tab template -->
   <script id="templates/home.html" type="text/ng-template">
     <ion-tabs class="tabs-icon-top tabs-primary">
       <ion-tab title="Buildings" icon="fa fa-building" href="#/buildings">
@@ -177,32 +177,93 @@
     </ion-tabs>
   </script>
 
+  <!-- buildings tab template -->
   <script id="templates/buildings.html" type="text/ng-template">
-    <ion-view view-title="Buildings">
-      <ion-content class="padding">
-        <p>
-          <a class="button icon icon-right ion-chevron-right" href="#">Buildings</a>
-        </p>
-      </ion-content>
+    <ion-view view-title="Minion Village - Buildings">
+
+
+
+
+
+
+
+
     </ion-view>
   </script>
+
+  <!-- minions tab template -->
   <script id="templates/minions.html" type="text/ng-template">
-    <ion-view view-title="minions">
-      <ion-content class="padding">
-        <p>
-          <a class="button icon icon-right ion-chevron-right" href="#">minions</a>
-        </p>
+    <ion-view view-title="Minion Village - Minions">
+      <ion-content id="minion-tab-content">
+        <div id="minion-grid-container">
+          <div id="minion-grid">
+            <div id="minion-grid-column-headers">
+              <div class="minion-grid-column-header">
+              </div>
+              <div class="minion-grid-column-header">
+                <div class="minion-header-image">
+                  <img src="img/monster/Melee_Minion.png">
+                </div>
+              </div>
+              <div class="minion-grid-column-header">
+                <div class="minion-header-image">
+                  <img src="img/monster/Caster_Minion.png">
+                </div>
+              </div>
+              <div class="minion-grid-column-header">
+                <div class="minion-header-image">
+                  <img src="img/monster/Siege_Minion.png">
+                </div>
+              </div>
+              <div class="minion-grid-column-header">
+                <div class="minion-header-image">
+                  <img src="img/blank.png" class="spacer"/>
+                  <div id="minion-image-all">
+                    <img src="img/monster/Melee_Minion.png" data-index="1"/>
+                    <img src="img/monster/Caster_Minion.png" data-index="2"/>
+                    <img src="img/monster/Siege_Minion.png" data-index="3"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
+              <div class="minion-grid-cell first" ng-bind-html="getRowHeader(buildingName) | rawHtml">
+              </div>
+              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
+                {{g.minions[buildingName][minionType]}}
+              </div>
+              <div class="minion-grid-cell">
+                {{g.minions[buildingName].all}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+
+
       </ion-content>
     </ion-view>
   </script>
+
+  <!-- missions tab template -->
   <script id="templates/missions.html" type="text/ng-template">
-    <ion-view view-title="missions">
-      <ion-content class="padding">
-        <p>
-          <a class="button icon icon-right ion-chevron-right" href="#">missions</a>
-        </p>
-      </ion-content>
+    <ion-view view-title="Minion Village - missions">
+
+
+
+
+
+
+
+
     </ion-view>
   </script>
+
+
 
 </html>

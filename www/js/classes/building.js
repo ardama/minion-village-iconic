@@ -25,8 +25,39 @@ var BUILDINGS = [
   STABLE,
   ARMORY,
   CAPITOL,
-  LAB
+  LAB,
+  RAID,
+  RAID_RALLY,
+  EXPEDITION,
+  EXPEDITION_RALLY
 ];
+
+var MINION_BUILDINGS = [
+  HUT,
+  FARM,
+  WORKSHOP,
+  LIBRARY,
+  SHRINE,
+  TOWER,
+  RAID,
+  EXPEDITION
+];
+
+var BUILDING_ICONS = {};
+BUILDING_ICONS[HUT] = 'home';
+BUILDING_ICONS[FARM] = 'database';
+BUILDING_ICONS[WORKSHOP] = 'industry';
+BUILDING_ICONS[LIBRARY] = 'flask';
+BUILDING_ICONS[SHRINE] = 'bolt';
+BUILDING_ICONS[TOWER] = 'shield';
+BUILDING_ICONS[STABLE] = '';
+BUILDING_ICONS[ARMORY] = '';
+BUILDING_ICONS[CAPITOL] = '';
+BUILDING_ICONS[LAB] = '';
+BUILDING_ICONS[RAID] = 'fort-awesome';
+BUILDING_ICONS[RAID_RALLY] = '';
+BUILDING_ICONS[EXPEDITION] = 'globe';
+BUILDING_ICONS[EXPEDITION_RALLY] = '';
 
 var Building = function(game, name, slots, cost, data) {
   this.Init(game, name, slots, cost, data);

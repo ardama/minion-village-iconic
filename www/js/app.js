@@ -1,4 +1,4 @@
-var version = '0.0.9';
+var version = '0.0.10';
 
 // Minion types
 var MELEE = 'melee';
@@ -104,17 +104,35 @@ var GameApp = angular.module('GameApp', ['ionic'])
       window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
   });
 
-  $scope.prettyInt = function (num, fixed) {
+  $scope.prettyInt = function(num, fixed) {
     return prettyIntBig(num, fixed);
   };
-  $scope.prettyIntCompact = function (num, fixed) {
+  $scope.prettyIntCompact = function(num, fixed) {
     return prettyIntBigCompact(num, fixed);
+  };
+  $scope.getRowHeader = function(buildingName) {
+    var width = $('.minion-grid-cell.first').width();
+    var icon = BUILDING_ICONS[buildingName];
+    if (width < 100) {
+      return '<i class="fa fa-' + icon + '"></i>';
+    } else if (width < 175) {
+      return buildingName;
+    } else {
+      return buildingName + ' <i class="fa fa-' + icon + '"></i> ';
+    }
   };
 
 
+  $scope.MONSTERS = MONSTERS;
+  $scope.BUILDINGS = BUILDINGS;
+  $scope.MINION_TYPES = MINION_TYPES;
+  $scope.MINION_BUILDINGS = MINION_BUILDINGS;
 
-
-});
+}).filter('rawHtml', ['$sce', function($sce){
+  return function(val) {
+    return $sce.trustAsHtml(val);
+  };
+}]);
 
 $(document).ready(function() {
   $scope.g.start();

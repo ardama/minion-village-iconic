@@ -112,7 +112,10 @@ ion-header-bar h5,
 ion-header-bar h6, {
   color: inherit;
 }
-
+.header-bar-dark {
+  background-color: $primary-3;
+  color: $light-text-primary;
+}
 .header-bar-primary {
   background-color: $primary-0;
   color: $light-text-primary;
@@ -139,6 +142,13 @@ ion-header-bar h6, {
   background-color: $gray-dark-4;
   color: $light-text-primary;
 }
+
+.sidemenu-container {
+  float: left;
+  width: 100%;
+  padding: 12px;
+}
+
 #minion-timer-container {
   position: relative;
   width: 100%;
@@ -170,17 +180,15 @@ ion-header-bar h6, {
 }
 
 #population-container {
-  float: left;
-  width: 100%;
-  padding: 0 10px;
   line-height: 28px;
   font-size: 20px;
+
+  padding-top: 0;
 }
 
 #population-stats {
   float: left;
   width: 100%;
-  margin-bottom: 10px;
 }
 
 #population-bar {
@@ -227,9 +235,6 @@ ion-header-bar h6, {
 }
 
 #stats-container {
-  float: left;
-  width: 100%;
-  padding: 10px;
   line-height: 28px;
   font-size: 20px;
 }
@@ -254,9 +259,6 @@ ion-header-bar h6, {
 }
 
 #gear-container {
-  float: left;
-  width: 100%;
-  padding: 10px;
   line-height: 34px;
   font-size: 20px;
 }
@@ -315,7 +317,125 @@ ion-header-bar h6, {
   text-align: right;
 }
 
+/////////////////////////////////////////////////////////
+// MINION GRID //////////////////////////////////////////
+/////////////////////////////////////////////////////////
+#minion-tab-content {
+  background-color: $gray-dark-5;
+  color: $light-text-primary;
+}
+#minion-grid-container {
+  float: left;
+  width: 100%;
+  color: $light-text-secondary;
 
+  padding: 4px
+}
+
+#minion-grid {
+  float: left;
+  width: 100%;
+}
+
+#minion-grid-column-headers {
+  float: left;
+  width: 100%;
+
+  margin-top: 5px;
+}
+
+.minion-grid-column-header {
+  float: left;
+  width: 21%;
+
+  min-height: 10px;
+}
+
+.minion-grid-column-header:first-child {
+  width: 16%;
+}
+
+.minion-grid-column-header:last-child {
+  position: relative;
+}
+
+#minion-image-all {
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  width: calc(80% - 16px);
+  max-width: 80px;
+  height: 100%;
+
+  img {
+    position: absolute;
+    width: 45%;
+    max-width: 38px;
+    border-radius: 50%;
+  }
+
+  img[data-index="1"] {
+    top: 14px;
+    left: -25%
+  }
+
+  img[data-index="2"] {
+    bottom: 10px;
+    left: -50%
+  }
+  img[data-index="3"] {
+    bottom: 10px;
+    left: 0;
+  }
+  img.spacer {
+    display: block;
+    width: 100%;
+    width: 80px;
+  }
+
+}
+
+.minion-header-image {
+  float: left;
+  width: 100%;
+
+  padding: 10px;
+}
+
+.minion-header-image img {
+  display: block;
+  max-width: 80px;
+  width: 80%;
+  border-radius: 50%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.minion-grid-row {
+  float: left;
+  width: 100%;
+}
+
+.minion-grid-cell {
+  float: left;
+  width: 21%;
+  height: 60px;
+  text-align: center;
+
+  line-height: 60px;
+  font-size: 24px;
+
+  overflow: hidden;
+}
+
+.minion-grid-cell.first {
+  width: 16%;
+
+  .fa {
+    color: $light-text-primary;
+  }
+}
 
 
 /////////////////////////////////////////////////////////
@@ -325,7 +445,7 @@ ion-header-bar h6, {
   color: $gold;
   font-size: .8em;
 }
-.fa.fa-lightbulb-o {
+.fa.fa-flask {
   color: $gold;
 }
 .fa.fa-bolt {
