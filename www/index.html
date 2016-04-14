@@ -198,26 +198,37 @@
         <div id="minion-grid-container">
           <div id="minion-grid">
             <div id="minion-grid-column-headers">
-              <div class="minion-grid-column-header">
+              <div class="minion-grid-column-header first">
+                <div class="minion-header-border-right"></div>
+                <div class="minion-header-image">
+                  <img class="blank" src="img/blank.png">
+                </div>
               </div>
               <div class="minion-grid-column-header">
+                <div class="minion-header-border-left"></div>
+                <div class="minion-header-border-right"></div>
                 <div class="minion-header-image">
                   <img src="img/monster/Melee_Minion.png">
                 </div>
               </div>
               <div class="minion-grid-column-header">
+                <div class="minion-header-border-left"></div>
+                <div class="minion-header-border-right"></div>
                 <div class="minion-header-image">
                   <img src="img/monster/Caster_Minion.png">
                 </div>
               </div>
               <div class="minion-grid-column-header">
+                <div class="minion-header-border-left"></div>
+                <div class="minion-header-border-right"></div>
                 <div class="minion-header-image">
                   <img src="img/monster/Siege_Minion.png">
                 </div>
               </div>
-              <div class="minion-grid-column-header">
+              <div class="minion-grid-column-header all">
+                <div class="minion-header-border-left"></div>
                 <div class="minion-header-image">
-                  <img src="img/blank.png" class="spacer"/>
+                  <img class="blank" src="img/blank.png" class="spacer"/>
                   <div id="minion-image-all">
                     <img src="img/monster/Melee_Minion.png" data-index="1"/>
                     <img src="img/monster/Caster_Minion.png" data-index="2"/>
@@ -228,13 +239,17 @@
             </div>
 
             <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
-              <div class="minion-grid-cell first" ng-bind-html="getRowHeader(buildingName) | rawHtml">
+              <div class="minion-grid-cell first" ng-bind-html="rowHeaders[buildingName] | rawHtml">
               </div>
               <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
-                {{g.minions[buildingName][minionType]}}
+                <div class="cell-content">
+                  {{g.minions[buildingName][minionType] | zeroToDash}}
+                </div>
               </div>
-              <div class="minion-grid-cell">
-                {{g.minions[buildingName].all}}
+              <div class="minion-grid-cell all">
+                <div class="cell-content">
+                  {{g.minions[buildingName].all | zeroToDash}}
+                </div>
               </div>
             </div>
 

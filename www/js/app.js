@@ -1,4 +1,4 @@
-var version = '0.0.10';
+var version = '0.0.11';
 
 // Minion types
 var MELEE = 'melee';
@@ -103,6 +103,23 @@ var GameApp = angular.module('GameApp', ['ionic'])
     if (window.minionTimer)
       window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
   });
+  $scope.$watch(function() {
+    return $('.minion-grid-cell.first').width();
+  }, function(oldValue, newValue) {
+    for (var i = 0; i < BUILDINGS.length; i++) {
+      var buildingName = BUILDINGS[i];
+      var icon = BUILDING_ICONS[buildingName];
+      var header;
+      if (newValue < 100) {
+        header = '<i class="fa fa-' + icon + '"></i>';
+      } else if (newValue < 175) {
+        header = buildingName;
+      } else {
+        header = buildingName + ' <i class="fa fa-' + icon + '"></i> ';
+      }
+      $scope.rowHeaders[buildingName] = header;
+    }
+  });
 
   $scope.prettyInt = function(num, fixed) {
     return prettyIntBig(num, fixed);
@@ -110,19 +127,8 @@ var GameApp = angular.module('GameApp', ['ionic'])
   $scope.prettyIntCompact = function(num, fixed) {
     return prettyIntBigCompact(num, fixed);
   };
-  $scope.getRowHeader = function(buildingName) {
-    var width = $('.minion-grid-cell.first').width();
-    var icon = BUILDING_ICONS[buildingName];
-    if (width < 100) {
-      return '<i class="fa fa-' + icon + '"></i>';
-    } else if (width < 175) {
-      return buildingName;
-    } else {
-      return buildingName + ' <i class="fa fa-' + icon + '"></i> ';
-    }
-  };
 
-
+  $scope.rowHeaders = {};
   $scope.MONSTERS = MONSTERS;
   $scope.BUILDINGS = BUILDINGS;
   $scope.MINION_TYPES = MINION_TYPES;
@@ -132,7 +138,11 @@ var GameApp = angular.module('GameApp', ['ionic'])
   return function(val) {
     return $sce.trustAsHtml(val);
   };
-}]);
+}]).filter('zeroToDash', function(){
+  return function(val) {
+    return val === 0 ? '-' : val;
+  };
+});
 
 $(document).ready(function() {
   $scope.g.start();
@@ -167,6 +177,30 @@ $(window).load(function() {
       this.ctx.arc(120, 120, 120 - this.width / 2, -(this.quart), ((this.circ) * current) - this.quart, false);
       this.ctx.stroke();
   }
+
+  $('.minion-grid-cell').hover(
+    function(event) {
+      $(this).addClass('highlight');
+    }, function(event) {
+      $(this).removeClass('highlight');
+  });
+
+  $('.minion-grid-cell.first, .minion-grid-cell.all').hover(
+    function(event) {
+      $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('highlight');
+    }, function(event) {
+      $(this).parent('.minion-grid-row').children('.minion-grid-cell').removeClass('highlight');
+  });
+
+  $('.minion-grid-cell').click(function(event) {
+    $('.minion-grid-cell').removeClass('active highlight');
+    $(this).addClass('active');
+  });
+
+  $('.minion-grid-cell.first, .minion-grid-cell.all').click(function(event) {
+    $(this).addClass('active');
+    $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('active');
+  });
 });
 
 

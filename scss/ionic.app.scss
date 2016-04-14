@@ -121,6 +121,10 @@ ion-header-bar h6, {
   color: $light-text-primary;
 }
 
+.header-bar-primary .button .icon {
+  color: $light-text-secondary;
+}
+
 .tabs-primary .tab-nav {
   background-color: $primary-0;
   color: $light-text-primary;
@@ -328,8 +332,6 @@ ion-header-bar h6, {
   float: left;
   width: 100%;
   color: $light-text-secondary;
-
-  padding: 4px
 }
 
 #minion-grid {
@@ -338,25 +340,19 @@ ion-header-bar h6, {
 }
 
 #minion-grid-column-headers {
+  position: relative;
   float: left;
   width: 100%;
-
-  margin-top: 5px;
+  background-color: $gray-dark-4;
+  @include box-shadow(0px 1px 3px 0px $box-shadow);
 }
 
 .minion-grid-column-header {
+  position: relative;
   float: left;
-  width: 21%;
+  width: 20%;
 
   min-height: 10px;
-}
-
-.minion-grid-column-header:first-child {
-  width: 16%;
-}
-
-.minion-grid-column-header:last-child {
-  position: relative;
 }
 
 #minion-image-all {
@@ -375,7 +371,7 @@ ion-header-bar h6, {
   }
 
   img[data-index="1"] {
-    top: 14px;
+    top: calc(10px + 5%);
     left: -25%
   }
 
@@ -402,6 +398,24 @@ ion-header-bar h6, {
   padding: 10px;
 }
 
+// .minion-header-border-left {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//
+//   border-left: 1px solid $gray-dark-6;
+// }
+//
+// .minion-header-border-right {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   height: 100%;
+//
+//   border-left: 1px solid $gray-dark-2;
+// }
+
 .minion-header-image img {
   display: block;
   max-width: 80px;
@@ -410,32 +424,61 @@ ion-header-bar h6, {
 
   margin-left: auto;
   margin-right: auto;
+
+  @include box-shadow(0 0 3px $box-shadow);
+}
+
+.minion-header-image img.blank {
+  @include box-shadow(none);
 }
 
 .minion-grid-row {
   float: left;
   width: 100%;
+
+  @include transition(background-color 100ms);
 }
 
 .minion-grid-cell {
   float: left;
-  width: 21%;
+  width: 20%;
   height: 60px;
-  text-align: center;
 
+  text-align: center;
   line-height: 60px;
   font-size: 24px;
 
   overflow: hidden;
+  cursor: pointer;
+  @include transition(background-color 100ms, color 100ms);
 }
 
+.minion-grid-cell.highlight {
+  background-color: $gray-dark-6;
+}
+
+.minion-grid-cell.active {
+  background-color: $gray-dark-7;
+  color: $light-text-primary;
+}
+
+
 .minion-grid-cell.first {
-  width: 16%;
+  text-align: right;
+  padding-right: 2%;
+  font-size: 20px;
 
   .fa {
     color: $light-text-primary;
+    width: 30px;
+    text-align: center;
   }
 }
+
+.minion-grid-cell.all {
+//  border-left: 1px solid $light-text-tertiary;
+};
+
 
 
 /////////////////////////////////////////////////////////
@@ -456,4 +499,65 @@ ion-header-bar h6, {
 }
 .fa.fa-home {
   color: $gray-mid-9;
+}
+
+
+
+/////////////////////////////////////////////////////////
+// MIXINS ///////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+@mixin box-shadow($shadow1, $shadow2:false, $shadow3:false, $shadow4:false, $shadow5:false, $shadow6:false, $shadow7:false, $shadow8:false) {
+ $params: $shadow1;
+  @if $shadow2
+    { $params: $shadow1, $shadow2; }
+    @if $shadow3 != false
+      { $params: $shadow1, $shadow2, $shadow3; }
+      @if $shadow4 != false
+        { $params: $shadow1, $shadow2, $shadow3, $shadow4; }
+        @if $shadow5 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5; }
+          @if $shadow6 != false
+            { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5, $shadow6; }
+            @if $shadow7 != false
+              { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5, $shadow6, $shadow7; }
+              @if $shadow8 != false
+                { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5, $shadow6, $shadow7, $shadow8; }
+
+  -webkit-box-shadow: $params;
+     -moz-box-shadow: $params;
+          box-shadow: $params;
+}
+
+@mixin transition($transition1, $transition2:false, $transition3:false, $transition4:false, $transition5:false) {
+ $params: $transition1;
+  @if $transition2
+    { $params: $transition1, $transition2; }
+    @if $transition3 != false
+      { $params: $transition1, $transition2, $transition3; }
+      @if $transition4 != false
+        { $params: $transition1, $transition2, $transition3, $transition4; }
+        @if $transition5 != false
+          { $params: $transition1, $transition2, $transition3, $transition4, $transition5; }
+
+  -webkit-transition: $params;
+  -moz-transition: $params;
+  -o-transition: $params;
+  transition: $params;
+}
+
+@mixin animation($animation1, $animation2:false, $animation3:false, $animation4:false, $animation5:false) {
+ $params: $animation1;
+  @if $animation2
+    { $params: $animation1, $animation2; }
+    @if $animation3 != false
+      { $params: $animation1, $animation2, $animation3; }
+      @if $animation4 != false
+        { $params: $animation1, $animation2, $animation3, $animation4; }
+        @if $animation5 != false
+          { $params: $animation1, $animation2, $animation3, $animation4, $animation5; }
+
+  -webkit-animation: $params;
+  -moz-animation: $params;
+  -o-animation: $params;
+  animation: $params;
 }

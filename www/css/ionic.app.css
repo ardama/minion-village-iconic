@@ -9747,6 +9747,9 @@ ion-header-bar h6 {
   background-color: #0484A2;
   color: white; }
 
+.header-bar-primary .button .icon {
+  color: rgba(255, 255, 255, 0.7); }
+
 .tabs-primary .tab-nav {
   background-color: #0484A2;
   color: white; }
@@ -9906,28 +9909,25 @@ ion-header-bar h6 {
 #minion-grid-container {
   float: left;
   width: 100%;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 4px; }
+  color: rgba(255, 255, 255, 0.7); }
 
 #minion-grid {
   float: left;
   width: 100%; }
 
 #minion-grid-column-headers {
+  position: relative;
   float: left;
   width: 100%;
-  margin-top: 5px; }
+  background-color: #222;
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75); }
 
 .minion-grid-column-header {
+  position: relative;
   float: left;
-  width: 21%;
+  width: 20%;
   min-height: 10px; }
-
-.minion-grid-column-header:first-child {
-  width: 16%; }
-
-.minion-grid-column-header:last-child {
-  position: relative; }
 
 #minion-image-all {
   position: absolute;
@@ -9942,7 +9942,7 @@ ion-header-bar h6 {
     max-width: 38px;
     border-radius: 50%; }
   #minion-image-all img[data-index="1"] {
-    top: 14px;
+    top: calc(10px + 5%);
     left: -25%; }
   #minion-image-all img[data-index="2"] {
     bottom: 10px;
@@ -9966,25 +9966,47 @@ ion-header-bar h6 {
   width: 80%;
   border-radius: 50%;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.75); }
+
+.minion-header-image img.blank {
+  -webkit-box-shadow: none;
+  box-shadow: none; }
 
 .minion-grid-row {
   float: left;
-  width: 100%; }
+  width: 100%;
+  -webkit-transition: background-color 100ms;
+  transition: background-color 100ms; }
 
 .minion-grid-cell {
   float: left;
-  width: 21%;
+  width: 20%;
   height: 60px;
   text-align: center;
   line-height: 60px;
   font-size: 24px;
-  overflow: hidden; }
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-transition: background-color 100ms, color 100ms;
+  transition: background-color 100ms, color 100ms; }
+
+.minion-grid-cell.highlight {
+  background-color: #333; }
+
+.minion-grid-cell.active {
+  background-color: #383838;
+  color: white; }
 
 .minion-grid-cell.first {
-  width: 16%; }
+  text-align: right;
+  padding-right: 2%;
+  font-size: 20px; }
   .minion-grid-cell.first .fa {
-    color: white; }
+    color: white;
+    width: 30px;
+    text-align: center; }
 
 .fa.fa-database {
   color: #FFE875;
