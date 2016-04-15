@@ -9777,7 +9777,7 @@ ion-header-bar h6 {
 
 #minion-timer-canvas {
   position: relative;
-  z-index: 10;
+  z-index: 1;
   display: block;
   width: 100%;
   margin-left: auto;
@@ -9789,9 +9789,10 @@ ion-header-bar h6 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  padding: 30px;
-  border-radius: 50%; }
+  width: calc(100% - 40px);
+  margin: 20px;
+  border-radius: 50%;
+  border: 0 solid #333; }
 
 #population-container {
   line-height: 28px;
@@ -9814,7 +9815,12 @@ ion-header-bar h6 {
 #population-bar-fill {
   position: absolute;
   height: 100%;
-  background-color: #0484A2; }
+  background-color: #0484A2;
+  -webkit-transition: width 200ms, color 200ms;
+  transition: width 200ms, color 200ms; }
+
+#population-bar-fill[data-percent="100.0"] {
+  background-color: #29BF65; }
 
 #minions-stat-container {
   float: left;
@@ -9920,8 +9926,8 @@ ion-header-bar h6 {
   float: left;
   width: 100%;
   background-color: #222;
-  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75); }
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75); }
 
 .minion-grid-column-header {
   position: relative;

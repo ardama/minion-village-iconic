@@ -1,4 +1,4 @@
-var version = '0.0.11';
+var version = '0.0.12';
 
 // Minion types
 var MELEE = 'melee';
@@ -99,13 +99,15 @@ var GameApp = angular.module('GameApp', ['ionic'])
   };
   $scope.$watch(function() {
     return $scope.g.timers.minion;
-  }, function(oldValue, newValue) {
+  }, function(newValue, oldValue) {
     if (window.minionTimer)
       window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
   });
   $scope.$watch(function() {
-    return $('.minion-grid-cell.first').width();
-  }, function(oldValue, newValue) {
+    if (!$scope.firstColumnHeader || $scope.firstColumnHeader.length == 0)
+      $scope.firstColumnHeader = $('.minion-grid-cell.first');
+    return $scope.firstColumnHeader.width();
+  }, function(newValue, oldValue) {
     for (var i = 0; i < BUILDINGS.length; i++) {
       var buildingName = BUILDINGS[i];
       var icon = BUILDING_ICONS[buildingName];
@@ -172,12 +174,18 @@ $(window).load(function() {
   minionTimer.imd = minionTimer.ctx.getImageData(0, 0, 240, 240);
 
   minionTimer.draw = function(current) {
+      if (current >= 1) {
+        minionTimer.ctx.strokeStyle = '#29BF65';
+      } else {
+        minionTimer.ctx.strokeStyle = '#e8e8e8';
+      }
+
       this.ctx.putImageData(this.imd, 0, 0);
       this.ctx.beginPath();
       this.ctx.arc(120, 120, 120 - this.width / 2, -(this.quart), ((this.circ) * current) - this.quart, false);
       this.ctx.stroke();
   }
-
+  $('#minion-timer-image').css('border-width', '10px');
   $('.minion-grid-cell').hover(
     function(event) {
       $(this).addClass('highlight');

@@ -94,6 +94,7 @@ $light-text-tertiary: rgba(255,255,255,.35) !default;
 $light-text-disabled: rgba(255,255,255,.20) !default;
 
 $box-shadow: rgba(0,0,0,.75) !default;
+$box-shadow-light: rgba(0,0,0,.5) !default;
 
 /////////////////////////////////////////////////////////
 // GENERIC ELEMENTS /////////////////////////////////////
@@ -162,7 +163,7 @@ ion-header-bar h6, {
 
 #minion-timer-canvas {
   position: relative;
-  z-index: 10;
+  z-index: 1;
   display: block;
   width: 100%;
 
@@ -177,10 +178,11 @@ ion-header-bar h6, {
   top: 0;
   left: 0;
 
-  width: 100%;
-  padding: 30px;
+  width: calc(100% - 40px);
+  margin: 20px;
 
   border-radius: 50%;
+  border: 0 solid $gray-dark-6;
 }
 
 #population-container {
@@ -211,6 +213,11 @@ ion-header-bar h6, {
   position: absolute;
   height: 100%;
   background-color: $primary-0;
+  @include transition(width 200ms, color 200ms);
+}
+
+#population-bar-fill[data-percent="100.0"] {
+  background-color: $tertiary-2;
 }
 
 #minions-stat-container {
@@ -344,7 +351,7 @@ ion-header-bar h6, {
   float: left;
   width: 100%;
   background-color: $gray-dark-4;
-  @include box-shadow(0px 1px 3px 0px $box-shadow);
+  @include box-shadow(0px 0px 3px 0px $box-shadow);
 }
 
 .minion-grid-column-header {
