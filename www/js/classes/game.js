@@ -469,14 +469,16 @@ Game.prototype.applyCasualties = function(buildingName, casualty) {
   }
   minions[ALL] -= minionsLost;
 
-  for (i = 0; i < MONSTERS.length; i++) {
-    monster = MONSTERS[i];
-    count = monsters[monster];
-    if (count) {
-      lost = Math.floor(count * (Math.random() * 0.4 + 0.8) * casualty);
-      monsters[monster] = Math.max(0, count - lost);
-      monstersLost += count - monsters[monster];
+  if (monsters) {
+    for (i = 0; i < MONSTERS.length; i++) {
+      monster = MONSTERS[i];
+      count = monsters[monster];
+      if (count) {
+        lost = Math.floor(count * (Math.random() * 0.4 + 0.8) * casualty);
+        monsters[monster] = Math.max(0, count - lost);
+        monstersLost += count - monsters[monster];
+      }
     }
+    monsters[ALL] -= monstersLost;
   }
-  minions[ALL] -= minionsLost;
 };

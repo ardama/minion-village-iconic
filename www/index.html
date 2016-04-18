@@ -57,7 +57,7 @@
           <div id="stats-container" class="sidemenu-container">
             <div id="stat-icon-container">
               <i class="icon fa fa-database"></i></br>
-              <i class="icon fa fa-flask"></i></br>
+              <i class="icon fa fa-book"></i></br>
               <i class="icon fa fa-bolt"></i>
             </div>
             <div id="stat-value-container">
@@ -239,21 +239,23 @@
             </div>
 
             <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
-              <div class="minion-grid-cell first" ng-bind-html="rowHeaders[buildingName] | rawHtml">
+              <div class="minion-grid-cell first" ng-bind-html="rowHeaders[buildingName] | rawHtml" ng-click="showMinionRow(buildingName)">
               </div>
-              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
+              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell" ng-click="showMinionCell(buildingName, minionType)">
                 <div class="cell-content">
                   {{g.minions[buildingName][minionType] | zeroToDash}}
                 </div>
               </div>
-              <div class="minion-grid-cell all">
+              <div class="minion-grid-cell all" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content">
                   {{g.minions[buildingName].all | zeroToDash}}
                 </div>
               </div>
             </div>
-
           </div>
+        </div>
+        <!-- selected row/cell partial -->
+        <div id="grid-selection-partial" ng-include="gridSelectionPartialUrl">
         </div>
 
 

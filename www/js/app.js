@@ -1,4 +1,4 @@
-var version = '0.0.12';
+var version = '0.0.13';
 
 // Minion types
 var MELEE = 'melee';
@@ -113,11 +113,11 @@ var GameApp = angular.module('GameApp', ['ionic'])
       var icon = BUILDING_ICONS[buildingName];
       var header;
       if (newValue < 100) {
-        header = '<i class="fa fa-' + icon + '"></i>';
+        header = '<i class="fa ' + icon + '"></i>';
       } else if (newValue < 175) {
         header = buildingName;
       } else {
-        header = buildingName + ' <i class="fa fa-' + icon + '"></i> ';
+        header = buildingName + ' <i class="fa ' + icon + '"></i> ';
       }
       $scope.rowHeaders[buildingName] = header;
     }
@@ -128,6 +128,21 @@ var GameApp = angular.module('GameApp', ['ionic'])
   };
   $scope.prettyIntCompact = function(num, fixed) {
     return prettyIntBigCompact(num, fixed);
+  };
+
+  $scope.gridSelectionPartialUrl = '';
+  $scope.gridSelectedBuilding = '';
+  $scope.gridSelectedMinion = '';
+  $scope.showMinionRow = function(buildingName) {
+    $scope.gridSelectionPartialUrl = 'html/minionRow.html';
+    $scope.gridSelectedBuilding = buildingName;
+    $scope.gridSelectedMinion = null;
+  };
+
+  $scope.showMinionCell = function(buildingName, minionType) {
+    $scope.gridSelectionPartialUrl = 'html/minionCell.html';
+    $scope.gridSelectedBuilding = buildingName;
+    $scope.gridSelectedMinion = minionType;
   };
 
   $scope.rowHeaders = {};
