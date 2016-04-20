@@ -280,8 +280,11 @@ Game.prototype.updateStats = function() {
 /////////////////////////////////////////////////////////
 // USER ACTIONS /////////////////////////////////////////
 /////////////////////////////////////////////////////////
-Game.prototype.moveMinions = function(minions, type, currentBuilding, newBuilding) {
-  if (minions < 1) {
+Game.prototype.moveMinions = function(minions, type, newBuilding, currentBuilding) {
+  if (minions == 'max') {
+    minions = Infinity;
+  }
+  else if (minions < 1) {
     return;
   }
 
@@ -350,10 +353,10 @@ Game.prototype.launchRaid = function() {
 /////////////////////////////////////////////////////////
 // OTHER GAME FUNCTIONS /////////////////////////////////
 /////////////////////////////////////////////////////////
-Game.prototype.moveAllMinions = function(currentBuilding, newBuilding) {
+Game.prototype.moveAllMinions = function(newBuilding, currentBuilding) {
   for (var i = 0; i < MINION_TYPES.length; i++) {
     var type = MINION_TYPES[i];
-    this.moveMinions(Infinity, type, currentBuilding, newBuilding);
+    this.moveMinions(Infinity, type, newBuilding, currentBuilding);
   }
 };
 

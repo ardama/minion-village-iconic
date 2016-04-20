@@ -72,6 +72,7 @@ Building.prototype.Init = function(game, name, slots, cost, data) {
 
   this.startCost = cost;
   this.capacity = 0;
+  this.count = 0;
 };
 
 Building.initializeBuildings = function(game) {

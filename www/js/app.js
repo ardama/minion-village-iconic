@@ -1,4 +1,4 @@
-var version = '0.0.14';
+var version = '0.0.15';
 
 // Minion types
 var MELEE = 'melee';
@@ -130,6 +130,11 @@ var GameApp = angular.module('GameApp', ['ionic'])
     return prettyIntBigCompact(num, fixed);
   };
 
+  $scope.minionIncrement = 1;
+  $scope.setMinionIncrement = function(increment) {
+    $scope.minionIncrement = increment;
+  }
+
   $scope.gridSelectionPartialUrl = '';
   $scope.gridSelectedBuilding = '';
   $scope.gridSelectedMinion = '';
@@ -216,13 +221,23 @@ $(window).load(function() {
   });
 
   $('.minion-grid-cell').click(function(event) {
+    var active = $(this).hasClass('active') && !$(this).parent('.minion-grid-row').hasClass('active');
     $('.minion-grid-cell').removeClass('active highlight');
-    $(this).addClass('active');
+    $('.minion-grid-row').removeClass('active');
+    if (!active) {
+      $(this).addClass('active');
+    }
   });
 
   $('.minion-grid-cell.first, .minion-grid-cell.all').click(function(event) {
+    var $row = $(this).parent('.minion-grid-row');
     $(this).addClass('active');
-    $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('active');
+    $row.children('.minion-grid-cell').addClass('active');
+    $row.addClass('active');
+  });
+
+  $('.cell-buttons').click(function(event) {
+    event.stopPropagation();
   });
 });
 

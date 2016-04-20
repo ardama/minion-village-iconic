@@ -203,6 +203,20 @@
                 <div class="minion-header-image">
                   <img class="blank" src="img/blank.png">
                 </div>
+                <div id="minion-increment-buttons">
+                  <div class="minion-increment-button" ng-class="minionIncrement == 1 ? 'active': ''" ng-click="setMinionIncrement(1)">
+                    <div class="minion-increment-button-content">1</div>
+                  </div>
+                  <div class="minion-increment-button" ng-class="minionIncrement == 10 ? 'active': ''" ng-click="setMinionIncrement(10)">
+                    <div class="minion-increment-button-content">10</div>
+                  </div>
+                  <div class="minion-increment-button" ng-class="minionIncrement == 100 ? 'active': ''" ng-click="setMinionIncrement(100)">
+                    <div class="minion-increment-button-content">100</div>
+                  </div>
+                  <div class="minion-increment-button" ng-class="minionIncrement == 'max' ? 'active': ''" ng-click="setMinionIncrement('max')">
+                    <div class="minion-increment-button-content">max</div>
+                  </div>
+                </div>
               </div>
               <div class="minion-grid-column-header">
                 <div class="minion-header-border-left"></div>
@@ -239,16 +253,30 @@
             </div>
 
             <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
-              <div class="minion-grid-cell first" ng-bind-html="rowHeaders[buildingName] | rawHtml" ng-click="showMinionRow(buildingName)">
+              <div class="minion-grid-cell first" ng-click="showMinionRow(buildingName)">
+                <div ng-bind-html="rowHeaders[buildingName] | rawHtml"></div>
+                <!--
+                <div class="remove-minion-button cell-button" ng-click="g.moveAllMinions(null, buildingName)">
+                  <i class="fa fa-minus"></i>
+                </div>
+                -->
               </div>
               <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell" ng-click="showMinionCell(buildingName, minionType)">
                 <div class="cell-content">
-                  {{g.minions[buildingName][minionType] | zeroToDash}}
+                  {{g.minions[buildingName][minionType]}}
+                </div>
+                <div class="cell-buttons">
+                  <div class="add-minion-button cell-button" ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="remove-minion-button cell-button" ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
+                    <i class="fa fa-minus"></i>
+                  </div>
                 </div>
               </div>
               <div class="minion-grid-cell all" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content">
-                  {{g.minions[buildingName].all | zeroToDash}}
+                  {{g.minions[buildingName].all}}
                 </div>
               </div>
             </div>

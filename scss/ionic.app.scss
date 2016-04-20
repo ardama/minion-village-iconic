@@ -49,6 +49,7 @@ $favor: #6B46E5;
 
 $black: #000;
 $white: #fff;
+$transparent: rgba(0,0,0,0);
 
 $gray-light-0: #a0a0a0 !default;
 $gray-light-1: #a8a8a8 !default;
@@ -347,6 +348,7 @@ ion-header-bar h6, {
 }
 
 #minion-grid-column-headers {
+  z-index: 2;
   position: relative;
   float: left;
   width: 100%;
@@ -367,33 +369,33 @@ ion-header-bar h6, {
   left: 50%;
   top: 0px;
   width: calc(80% - 16px);
-  max-width: 80px;
+  max-width: 60px;
   height: 100%;
 
   img {
     position: absolute;
     width: 45%;
-    max-width: 38px;
+    max-width: 28px;
     border-radius: 50%;
   }
 
   img[data-index="1"] {
-    top: calc(10px + 5%);
+    top: calc(12px + 5%);
     left: -25%
   }
 
   img[data-index="2"] {
-    bottom: 10px;
+    bottom: 12px;
     left: -50%
   }
   img[data-index="3"] {
-    bottom: 10px;
+    bottom: 12px;
     left: 0;
   }
   img.spacer {
     display: block;
     width: 100%;
-    width: 80px;
+    width: 60px;
   }
 
 }
@@ -402,30 +404,12 @@ ion-header-bar h6, {
   float: left;
   width: 100%;
 
-  padding: 10px;
+  padding: 12px;
 }
-
-// .minion-header-border-left {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//
-//   border-left: 1px solid $gray-dark-6;
-// }
-//
-// .minion-header-border-right {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   height: 100%;
-//
-//   border-left: 1px solid $gray-dark-2;
-// }
 
 .minion-header-image img {
   display: block;
-  max-width: 80px;
+  max-width: 60px;
   width: 80%;
   border-radius: 50%;
 
@@ -439,6 +423,48 @@ ion-header-bar h6, {
   @include box-shadow(none);
 }
 
+#minion-increment-buttons {
+  position: absolute;
+  float: left;
+
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid $gray-dark-2;
+}
+
+.minion-increment-button {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 50%;
+
+  text-align: center;
+  color: $light-text-secondary;
+  cursor: pointer;
+
+  @include transition(color 100ms, background-color 100ms, box-shadow 100ms);
+}
+
+.minion-increment-button-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 16px;
+  line-height: 16px;
+
+  margin: auto;
+};
+
+.minion-increment-button.active {
+  color: $light-text-primary;
+  background-color: $primary-4;
+
+  @include box-shadow(0 0 3px 0 $box-shadow inset);
+}
+
 .minion-grid-row {
   float: left;
   width: 100%;
@@ -447,15 +473,15 @@ ion-header-bar h6, {
 }
 
 .minion-grid-cell {
+  position: relative;
   float: left;
   width: 20%;
   height: 60px;
 
   text-align: center;
   line-height: 60px;
-  font-size: 24px;
+  font-size: 20px;
 
-  overflow: hidden;
   cursor: pointer;
   @include transition(background-color 100ms, color 100ms);
 }
@@ -465,6 +491,7 @@ ion-header-bar h6, {
 }
 
 .minion-grid-cell.active {
+  z-index: 1;
   background-color: $gray-dark-7;
   color: $light-text-primary;
 }
@@ -485,6 +512,85 @@ ion-header-bar h6, {
 .minion-grid-cell.all {
 //  border-left: 1px solid $light-text-tertiary;
 };
+
+.cell-buttons {
+  position: absolute;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  left: 100%;
+  top: 0;
+
+  width: 44px;
+  height: 100%;
+  @include transition(visibility 100ms, opacity 100ms);
+}
+
+.cell-button {
+  position: absolute;
+  left: 4px;
+
+  width: 40px;
+  height: 28px;
+
+  line-height: 28px;
+  font-size: 12px;
+
+  color: $light-text-secondary;
+  background-color: $primary-4;
+
+  @include transition(color 100ms, background-color 100ms);
+}
+
+.add-minion-button {
+  top: 0;
+}
+
+.remove-minion-button {
+  bottom: 0;
+}
+
+.first .remove-minion-button {
+  top: 0;
+  left: 0;
+  height: 60px;
+  line-height: 60px;
+  border: none;
+
+  text-align: center;
+}
+
+.cell-button:hover {
+  color: $light-text-primary;
+  background-color: $primary-3;
+}
+
+.cell-button:active {
+  color: $light-text-disabled;
+  background-color: $primary-4;
+}
+
+.minion-grid-cell.active .cell-buttons {
+  visibility: visible;
+  opacity: .8;
+}
+
+.minion-grid-row.active .cell-buttons {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.minion-grid-cell.first.active .remove-minion-button {
+  visibility: visible;
+  opacity: 1;
+
+  left: 0;
+}
+
+/////////////////////////////////////////////////////////
+// CELL PARTIAL /////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
 
 
 
@@ -507,8 +613,6 @@ ion-header-bar h6, {
 .fa.fa-home {
   color: $gray-mid-9;
 }
-
-
 
 /////////////////////////////////////////////////////////
 // MIXINS ///////////////////////////////////////////////
