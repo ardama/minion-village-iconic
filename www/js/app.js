@@ -1,4 +1,4 @@
-var version = '0.0.15';
+var version = '0.0.16';
 
 // Minion types
 var MELEE = 'melee';
@@ -213,12 +213,12 @@ $(window).load(function() {
       $(this).removeClass('highlight');
   });
 
-  $('.minion-grid-cell.first, .minion-grid-cell.all').hover(
-    function(event) {
-      $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('highlight');
-    }, function(event) {
-      $(this).parent('.minion-grid-row').children('.minion-grid-cell').removeClass('highlight');
-  });
+  // $('.minion-grid-cell.first, .minion-grid-cell.all').hover(
+  //   function(event) {
+  //     $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('highlight');
+  //   }, function(event) {
+  //     $(this).parent('.minion-grid-row').children('.minion-grid-cell').removeClass('highlight');
+  // });
 
   $('.minion-grid-cell').click(function(event) {
     var active = $(this).hasClass('active') && !$(this).parent('.minion-grid-row').hasClass('active');
@@ -229,12 +229,12 @@ $(window).load(function() {
     }
   });
 
-  $('.minion-grid-cell.first, .minion-grid-cell.all').click(function(event) {
-    var $row = $(this).parent('.minion-grid-row');
-    $(this).addClass('active');
-    $row.children('.minion-grid-cell').addClass('active');
-    $row.addClass('active');
-  });
+  // $('.minion-grid-cell.first, .minion-grid-cell.all').click(function(event) {
+  //   var $row = $(this).parent('.minion-grid-row');
+  //   $(this).addClass('active');
+  //   $row.children('.minion-grid-cell').addClass('active');
+  //   $row.addClass('active');
+  // });
 
   $('.cell-buttons').click(function(event) {
     event.stopPropagation();

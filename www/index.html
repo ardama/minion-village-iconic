@@ -62,24 +62,24 @@
             </div>
             <div id="stat-value-container">
               <div id="gold-container">
-                {{prettyInt(g.gold)}}
+                {{prettyIntCompact(g.gold)}}
               </div>
               <div id="knowledge-container">
-                {{prettyInt(g.knowledge)}}
+                {{prettyIntCompact(g.knowledge)}}
               </div>
               <div id="favor-container">
-                {{prettyInt(g.favor)}}
+                {{prettyIntCompact(g.favor)}}
               </div>
             </div>
             <div id="stat-rate-container">
               <div id="gold-rate-container">
-                {{prettyInt(g.goldRate)}} /s
+                {{prettyIntCompact(g.goldRate)}} /s
               </div>
               <div id="knowledge-rate-container">
-                {{prettyInt(g.knowledgeRate)}} /s
+                {{prettyIntCompact(g.knowledgeRate)}} /s
               </div>
               <div id="favor-rate-container">
-                {{prettyInt(g.favorRate)}} /s
+                {{prettyIntCompact(g.favorRate)}} /s
               </div>
             </div>
           </div>
@@ -103,36 +103,36 @@
             </div>
             <div id="gear-value-container">
               <div id="machetes-container">
-                {{prettyInt(g.gear.machete)}}
+                {{prettyIntCompact(g.gear.machete)}}
               </div>
               <div id="talismans-container">
-                {{prettyInt(g.gear.talisman)}}
+                {{prettyIntCompact(g.gear.talisman)}}
               </div>
               <div id="blades-container">
-                {{prettyInt(g.gear.blade)}}
+                {{prettyIntCompact(g.gear.blade)}}
               </div>
               <div id="rings-container">
-                {{prettyInt(g.gear.ring)}}
+                {{prettyIntCompact(g.gear.ring)}}
               </div>
               <div id="shields-container">
-                {{prettyInt(g.gear.shield)}}
+                {{prettyIntCompact(g.gear.shield)}}
               </div>
             </div>
             <div id="gear-rate-container">
               <div class="gear-rate" data-item="machete">
-                {{prettyInt(g.gearRate)}} /s
+                {{prettyIntCompact(g.gearRate)}} /s
               </div>
               <div class="gear-rate" data-item="talisman">
-                {{prettyInt(g.gearRate)}} /s
+                {{prettyIntCompact(g.gearRate)}} /s
               </div>
               <div class="gear-rate" data-item="blade">
-                {{prettyInt(g.gearRate)}} /s
+                {{prettyIntCompact(g.gearRate)}} /s
               </div>
               <div class="gear-rate" data-item="ring">
-                {{prettyInt(g.gearRate)}} /s
+                {{prettyIntCompact(g.gearRate)}} /s
               </div>
               <div class="gear-rate" data-item="shield">
-                {{prettyInt(g.gearRate)}} /s
+                {{prettyIntCompact(g.gearRate)}} /s
               </div>
             </div>
           </div>
@@ -204,17 +204,17 @@
                   <img class="blank" src="img/blank.png">
                 </div>
                 <div id="minion-increment-buttons">
-                  <div class="minion-increment-button" ng-class="minionIncrement == 1 ? 'active': ''" ng-click="setMinionIncrement(1)">
+                  <div class="minion-increment-button top" ng-class="minionIncrement == 1 ? 'active': ''" ng-click="setMinionIncrement(1)">
                     <div class="minion-increment-button-content">1</div>
                   </div>
-                  <div class="minion-increment-button" ng-class="minionIncrement == 10 ? 'active': ''" ng-click="setMinionIncrement(10)">
+                  <div class="minion-increment-button top" ng-class="minionIncrement == 10 ? 'active': ''" ng-click="setMinionIncrement(10)">
                     <div class="minion-increment-button-content">10</div>
                   </div>
                   <div class="minion-increment-button" ng-class="minionIncrement == 100 ? 'active': ''" ng-click="setMinionIncrement(100)">
                     <div class="minion-increment-button-content">100</div>
                   </div>
-                  <div class="minion-increment-button" ng-class="minionIncrement == 'max' ? 'active': ''" ng-click="setMinionIncrement('max')">
-                    <div class="minion-increment-button-content">max</div>
+                  <div class="minion-increment-button" ng-class="minionIncrement == 1000 ? 'active': ''" ng-click="setMinionIncrement(1000)">
+                    <div class="minion-increment-button-content">1k</div>
                   </div>
                 </div>
               </div>
@@ -254,12 +254,13 @@
 
             <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
               <div class="minion-grid-cell first" ng-click="showMinionRow(buildingName)">
-                <div ng-bind-html="rowHeaders[buildingName] | rawHtml"></div>
-                <!--
-                <div class="remove-minion-button cell-button" ng-click="g.moveAllMinions(null, buildingName)">
-                  <i class="fa fa-minus"></i>
+                <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
                 </div>
-                -->
+                <div class="cell-buttons">
+                  <div class="remove-minion-button cell-button" ng-click="g.moveAllMinions(null, buildingName)">
+                    <i class="fa fa-minus"></i>
+                  </div>
+                </div>
               </div>
               <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell" ng-click="showMinionCell(buildingName, minionType)">
                 <div class="cell-content">
@@ -276,7 +277,15 @@
               </div>
               <div class="minion-grid-cell all" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content">
-                  {{g.minions[buildingName].all}}
+                  <div class="cell-bar">
+                    <div class="cell-bar-fill" data-percent="{{g.getCapacityPercent(buildingName)}}" style="width:{{g.getCapacityPercent(buildingName)}}%">
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-buttons">
+                  <div class="remove-minion-button cell-button" ng-click="g.moveAllMinions(null, buildingName)">
+                    <i class="fa fa-minus"></i>
+                  </div>
                 </div>
               </div>
             </div>

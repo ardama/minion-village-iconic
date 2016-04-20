@@ -438,8 +438,17 @@ Game.prototype.getMonsterStatSum = function(buildingName, stat) {
 
 Game.prototype.getPopulationPercent = function() {
   var percent;
-  if (!this.buildings[HUT].capacity) percent = 100;
-  else percent = 100 * this.minionCounts.all / this.buildings[HUT].capacity;
+  var capacity = this.buildings[HUT].capacity
+  if (!capacity) percent = 100;
+  else percent = 100 * this.minionCounts.all / capacity;
+  return percent.toFixed(1);
+};
+
+Game.prototype.getCapacityPercent = function(buildingName) {
+  var percent;
+  var capacity = this.buildings[buildingName].capacity;
+  if (!capacity) percent = 0;
+  else percent = 100 * this.minions[buildingName].all / capacity;
   return percent.toFixed(1);
 };
 

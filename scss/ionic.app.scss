@@ -348,6 +348,7 @@ ion-header-bar h6, {
 }
 
 #minion-grid-column-headers {
+  display: flex;
   z-index: 2;
   position: relative;
   float: left;
@@ -360,9 +361,14 @@ ion-header-bar h6, {
   position: relative;
   float: left;
   width: 20%;
-
-  min-height: 10px;
+  height: 100%;
+  margin: auto;
 }
+
+.minion-grid-column-header.first {
+  min-height: 70px;
+}
+
 
 #minion-image-all {
   position: absolute;
@@ -429,7 +435,6 @@ ion-header-bar h6, {
 
   width: 100%;
   height: 100%;
-  border-right: 1px solid $gray-dark-2;
 }
 
 .minion-increment-button {
@@ -441,8 +446,13 @@ ion-header-bar h6, {
   text-align: center;
   color: $light-text-secondary;
   cursor: pointer;
+  border-right: 1px solid $gray-dark-2;
 
   @include transition(color 100ms, background-color 100ms, box-shadow 100ms);
+}
+
+.minion-increment-button.top {
+  border-bottom: 1px solid $gray-dark-2;
 }
 
 .minion-increment-button-content {
@@ -477,29 +487,19 @@ ion-header-bar h6, {
   float: left;
   width: 20%;
   height: 60px;
+  padding: 0 2px;
 
   text-align: center;
   line-height: 60px;
   font-size: 20px;
 
   cursor: pointer;
-  @include transition(background-color 100ms, color 100ms);
 }
 
-.minion-grid-cell.highlight {
-  background-color: $gray-dark-6;
-}
-
-.minion-grid-cell.active {
-  z-index: 1;
-  background-color: $gray-dark-7;
-  color: $light-text-primary;
-}
 
 
 .minion-grid-cell.first {
   text-align: right;
-  padding-right: 2%;
   font-size: 20px;
 
   .fa {
@@ -511,7 +511,27 @@ ion-header-bar h6, {
 
 .minion-grid-cell.all {
 //  border-left: 1px solid $light-text-tertiary;
-};
+}
+
+.cell-content {
+  width: 100%;
+  height: 100%;
+
+  @include transition(background-color 100ms, color 100ms);
+}
+
+.minion-grid-cell.highlight .cell-content {
+  background-color: $gray-dark-6;
+}
+
+.minion-grid-cell.active .cell-content {
+  background-color: $gray-dark-7;
+  color: $light-text-primary;
+}
+
+.minion-grid-cell.first .cell-content {
+  padding-right: 2%;
+}
 
 .cell-buttons {
   position: absolute;
@@ -521,14 +541,14 @@ ion-header-bar h6, {
   left: 100%;
   top: 0;
 
-  width: 44px;
+  width: 42px;
   height: 100%;
   @include transition(visibility 100ms, opacity 100ms);
 }
 
 .cell-button {
   position: absolute;
-  left: 4px;
+  left: 2px;
 
   width: 40px;
   height: 28px;
@@ -538,8 +558,14 @@ ion-header-bar h6, {
 
   color: $light-text-secondary;
   background-color: $primary-4;
+  opacity: .8;
 
-  @include transition(color 100ms, background-color 100ms);
+  @include transition(color 100ms, background-color 100ms, opacity 100ms);
+}
+
+.cell-button:hover,
+.cell-button:active {
+  opacity: 1;
 }
 
 .add-minion-button {
@@ -551,41 +577,69 @@ ion-header-bar h6, {
 }
 
 .first .remove-minion-button {
-  top: 0;
+  left: 2px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.all .cell-buttons {
+  left: -42px;
+}
+.all .remove-minion-button {
   left: 0;
   height: 60px;
   line-height: 60px;
-  border: none;
-
   text-align: center;
 }
 
 .cell-button:hover {
   color: $light-text-primary;
-  background-color: $primary-3;
 }
 
 .cell-button:active {
   color: $light-text-disabled;
-  background-color: $primary-4;
 }
 
 .minion-grid-cell.active .cell-buttons {
   visibility: visible;
-  opacity: .8;
-}
-
-.minion-grid-row.active .cell-buttons {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.minion-grid-cell.first.active .remove-minion-button {
-  visibility: visible;
   opacity: 1;
-
-  left: 0;
 }
+
+.cell-bar {
+  float: left;
+  margin-top: 22px;
+  margin-left: 5%;
+  width: 90%;
+  height: 16px;
+
+  border-radius: 10px;
+
+  background-color: $white;
+  overflow: hidden;
+}
+
+.cell-bar-fill {
+  float: left;
+  height: 100%;
+
+  background-color: $primary-0;
+  @include transition(background-color 200ms, width 200ms);
+}
+
+.cell-bar-fill[data-percent="100.0"] {
+  background-color: $tertiary-2;
+}
+
+// .minion-grid-row.active .cell-buttons {
+//   visibility: hidden;
+//   opacity: 0;
+// }
+
+// .minion-grid-row.active .first .cell-buttons {
+//   visibility: visible;
+//   opacity: .8;
+// }
 
 /////////////////////////////////////////////////////////
 // CELL PARTIAL /////////////////////////////////////////
