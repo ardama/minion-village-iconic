@@ -1,4 +1,4 @@
-var version = '0.0.13';
+var version = '0.0.14';
 
 // Minion types
 var MELEE = 'melee';

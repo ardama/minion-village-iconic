@@ -61,8 +61,8 @@ Monster.initializeMonsters = function(game) {
     game, BLUE_SENTINEL, 125,
     {damage: 1, durability: 1, strength: 1, skill: 1}
   );
-  monsters[RED_SENTINEL] = new Monster(
-    game, RED_SENTINEL, 150,
+  monsters[RED_BRAMBLEBACK] = new Monster(
+    game, RED_BRAMBLEBACK, 150,
     {damage: 1, durability: 1, strength: 1, skill: 1}
   );
   monsters[RIFT_HERALD] = new Monster(
@@ -81,4 +81,5 @@ Monster.initializeMonsters = function(game) {
     game, BARON_NASHOR, 250,
     {damage: 1, durability: 1, strength: 1, skill: 1}
   );
+  return monsters;
 };

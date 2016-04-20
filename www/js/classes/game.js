@@ -85,6 +85,7 @@ Game.prototype.Init = function(scope) {
   this.buildings = Building.initializeBuildings(this);
 
   // Monsters
+  this.monsters = Monster.initializeMonsters(this);
   this.monsterCounts = {};
   this.monsterCounts[STABLE] = {};
   this.monsterCounts[RAID] = {};

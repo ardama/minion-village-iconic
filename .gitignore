@@ -6,4 +6,4 @@ platforms/
 plugins/
 
 .sass-cache/
-www/css/*.map
+www/css/ionic*
