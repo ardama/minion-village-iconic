@@ -11,6 +11,7 @@
     <!-- <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"> -->
     <!-- <script src="lib/ionic/js/ionic.bundle.js"></script> -->
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Rajdhani:400,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
 
@@ -252,7 +253,7 @@
               </div>
             </div>
 
-            <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row">
+            <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row" data-building="{{buildingName}}">
               <div class="minion-grid-cell first" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
                 </div>

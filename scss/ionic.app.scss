@@ -101,7 +101,9 @@ $box-shadow-light: rgba(0,0,0,.5) !default;
 // GENERIC ELEMENTS /////////////////////////////////////
 /////////////////////////////////////////////////////////
 body {
+  font-family: "Rajdhani";
 }
+
 
 /////////////////////////////////////////////////////////
 // ION ELEMENTS /////////////////////////////////////////
@@ -349,7 +351,7 @@ ion-header-bar h6, {
 
 #minion-grid-column-headers {
   display: flex;
-  z-index: 2;
+  z-index: 3;
   position: relative;
   float: left;
   width: 100%;
@@ -445,6 +447,7 @@ ion-header-bar h6, {
 
   text-align: center;
   color: $light-text-secondary;
+  font-weight: bold;
   cursor: pointer;
   border-right: 1px solid $gray-dark-2;
 
@@ -476,6 +479,7 @@ ion-header-bar h6, {
 }
 
 .minion-grid-row {
+  position: relative;
   float: left;
   width: 100%;
 
@@ -496,6 +500,20 @@ ion-header-bar h6, {
   cursor: pointer;
 }
 
+.minion-grid-row[data-building="hut"] {
+  border-bottom: 1px solid $gray-dark-3;
+  @include box-shadow(0 0 3px 0 $box-shadow);
+  z-index: 2;
+
+ .minion-grid-cell {
+    cursor: default;
+    background-color: $gray-dark-4;
+  }
+
+  .cell-bar-fill {
+    background-color: $tertiary-2;
+  }
+}
 
 
 .minion-grid-cell.first {
@@ -530,7 +548,7 @@ ion-header-bar h6, {
 }
 
 .minion-grid-cell.first .cell-content {
-  padding-right: 2%;
+  padding-right: 8%;
 }
 
 .cell-buttons {
@@ -558,7 +576,7 @@ ion-header-bar h6, {
 
   color: $light-text-secondary;
   background-color: $primary-4;
-  opacity: .8;
+  opacity: .85;
 
   @include transition(color 100ms, background-color 100ms, opacity 100ms);
 }

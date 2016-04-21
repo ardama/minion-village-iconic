@@ -1,4 +1,4 @@
-var version = '0.0.16';
+var version = '0.0.17';
 
 // Minion types
 var MELEE = 'melee';
@@ -114,7 +114,7 @@ var GameApp = angular.module('GameApp', ['ionic'])
       var header;
       if (newValue < 100) {
         header = '<i class="fa ' + icon + '"></i>';
-      } else if (newValue < 175) {
+      } else if (newValue < 150) {
         header = buildingName;
       } else {
         header = buildingName + ' <i class="fa ' + icon + '"></i> ';
@@ -208,6 +208,9 @@ $(window).load(function() {
   $('#minion-timer-image').css('border-width', '10px');
   $('.minion-grid-cell').hover(
     function(event) {
+      if ($(this).parent('.minion-grid-row').data('building') == 'hut') {
+        return;
+      }
       $(this).addClass('highlight');
     }, function(event) {
       $(this).removeClass('highlight');
@@ -221,6 +224,9 @@ $(window).load(function() {
   // });
 
   $('.minion-grid-cell').click(function(event) {
+    if ($(this).parent('.minion-grid-row').data('building') == 'hut') {
+      return;
+    }
     var active = $(this).hasClass('active') && !$(this).parent('.minion-grid-row').hasClass('active');
     $('.minion-grid-cell').removeClass('active highlight');
     $('.minion-grid-row').removeClass('active');
