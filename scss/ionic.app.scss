@@ -527,10 +527,6 @@ ion-header-bar h6, {
   }
 }
 
-.minion-grid-cell.all {
-//  border-left: 1px solid $light-text-tertiary;
-}
-
 .cell-content {
   width: 100%;
   height: 100%;
@@ -543,7 +539,7 @@ ion-header-bar h6, {
 }
 
 .minion-grid-cell.active .cell-content {
-  background-color: $gray-dark-7;
+  background-color: $primary-0;
   color: $light-text-primary;
 }
 
@@ -578,12 +574,18 @@ ion-header-bar h6, {
   background-color: $primary-4;
   opacity: .85;
 
-  @include transition(color 100ms, background-color 100ms, opacity 100ms);
+  @include box-shadow(0 0 3px 0 $box-shadow);
+  @include transition(color 100ms, background-color 100ms, opacity 100ms, box-shadow 100ms);
 }
 
-.cell-button:hover,
+.cell-button:hover {
+  opacity: 1;
+  @include box-shadow(0 0 4px 0 $box-shadow);
+}
+
 .cell-button:active {
   opacity: 1;
+  @include box-shadow(0 0 0 0 $box-shadow);
 }
 
 .add-minion-button {
