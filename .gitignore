@@ -4,6 +4,4 @@
 node_modules/
 platforms/
 plugins/
-
-.sass-cache/
-www/css/ionic*
+www/css/
