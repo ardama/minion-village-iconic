@@ -1,4 +1,4 @@
-var version = '0.0.17';
+var version = '0.0.18';
 
 // Minion types
 var MELEE = 'melee';
@@ -21,6 +21,8 @@ var BLADE = 'blade';
 var RING = 'ring';
 var SHIELD = 'shield';
 
+var IGNORE_PLURALS = [];
+var SPECIAL_PLURALS = [];
 
 // Game constants
 var START_GOLD = 100;
@@ -112,12 +114,12 @@ var GameApp = angular.module('GameApp', ['ionic'])
       var buildingName = BUILDINGS[i];
       var icon = BUILDING_ICONS[buildingName];
       var header;
-      if (newValue < 100) {
+      if (newValue < 120) {
         header = '<i class="fa ' + icon + '"></i>';
       } else if (newValue < 150) {
-        header = buildingName;
+        header = buildingName.capitalize();
       } else {
-        header = buildingName + ' <i class="fa ' + icon + '"></i> ';
+        header = buildingName.capitalize() + ' <i class="fa ' + icon + '"></i> ';
       }
       $scope.rowHeaders[buildingName] = header;
     }
@@ -130,6 +132,10 @@ var GameApp = angular.module('GameApp', ['ionic'])
     return prettyIntBigCompact(num, fixed);
   };
 
+  $scope.getPlural = function(name, num) {
+    getPlural(name, num);
+  };
+
   $scope.minionIncrement = 1;
   $scope.setMinionIncrement = function(increment) {
     $scope.minionIncrement = increment;
@@ -137,18 +143,18 @@ var GameApp = angular.module('GameApp', ['ionic'])
 
   $scope.gridSelectionPartialUrl = '';
   $scope.gridSelectedBuilding = '';
-  $scope.gridSelectedMinion = '';
   $scope.showMinionRow = function(buildingName) {
     $scope.gridSelectionPartialUrl = 'html/minionRow.html';
-    $scope.gridSelectedBuilding = buildingName;
-    $scope.gridSelectedMinion = null;
+    $scope.gridSelectedBuilding = $scope.g.buildings[buildingName];
   };
 
-  $scope.showMinionCell = function(buildingName, minionType) {
-    $scope.gridSelectionPartialUrl = 'html/minionCell.html';
-    $scope.gridSelectedBuilding = buildingName;
-    $scope.gridSelectedMinion = minionType;
-  };
+  // TODO: code cleanup
+  // $scope.gridSelectedMinion = '';
+  // $scope.showMinionCell = function(buildingName, minionType) {
+  //   $scope.gridSelectionPartialUrl = 'html/minionCell.html';
+  //   $scope.gridSelectedBuilding = buildingName;
+  //   $scope.gridSelectedMinion = minionType;
+  // };
 
   $scope.rowHeaders = {};
   $scope.MONSTERS = MONSTERS;
@@ -208,7 +214,7 @@ $(window).load(function() {
   $('#minion-timer-image').css('border-width', '10px');
   $('.minion-grid-cell').hover(
     function(event) {
-      if ($(this).parent('.minion-grid-row').data('building') == 'hut') {
+      if (!$(this).hasClass('first') && $(this).parent('.minion-grid-row').data('building') == 'hut') {
         return;
       }
       $(this).addClass('highlight');
@@ -224,7 +230,7 @@ $(window).load(function() {
   // });
 
   $('.minion-grid-cell').click(function(event) {
-    if ($(this).parent('.minion-grid-row').data('building') == 'hut') {
+    if (!$(this).hasClass('first') && $(this).parent('.minion-grid-row').data('building') == 'hut') {
       return;
     }
     var active = $(this).hasClass('active') && !$(this).parent('.minion-grid-row').hasClass('active');
@@ -319,3 +325,17 @@ var prettyInt = function(num) {
   var s = num >= 1000 ? Math.floor(num) : Math.round(num * 10) / 10;
   return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+var getPlural = function(name, num) {
+  if (num == 1 || IGNORE_PLURALS.indexOf(name) >= 0) {
+    return name;
+  } else if (SPECIAL_PLURALS.indexOf(name) >= 0) {
+    return name.slice(0, -1) + 'ies';
+  } else {
+    return name + 's'
+  }
+}
+
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+};

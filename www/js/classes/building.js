@@ -15,6 +15,11 @@ var RAID_RALLY = "raid rally";
 var EXPEDITION = "expedition";
 var EXPEDITION_RALLY = "expedition rally";
 
+SPECIAL_PLURALS.push(LIBRARY);
+SPECIAL_PLURALS.push(ARMORY);
+SPECIAL_PLURALS.push(RAID_RALLY);
+SPECIAL_PLURALS.push(EXPEDITION_RALLY);
+
 var BUILDINGS = [
   HUT,
   FARM,
@@ -73,6 +78,7 @@ Building.prototype.Init = function(game, name, slots, cost, data) {
   this.startCost = cost;
   this.capacity = 0;
   this.count = 0;
+  this.display = getPlural(name, this.count).capitalize();
 };
 
 Building.initializeBuildings = function(game) {

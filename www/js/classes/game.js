@@ -331,8 +331,12 @@ Game.prototype.buyBuilding = function(buildingName, count) {
       break;
     }
   }
-  if (bought && building.slots) {
-    building.capacity += building.slots * bought;
+  if (bought) {
+    building.cost.gold *= Math.pow(1.1, bought);
+    building.display = getPlural(building.name, building.count).capitalize();
+    if (building.slots) {
+      building.capacity += building.slots * bought;
+    }
   }
 };
 

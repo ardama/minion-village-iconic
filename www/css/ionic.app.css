@@ -9732,7 +9732,7 @@ a.button {
   transition-duration: 0s; }
 
 body {
-  font-family: "Rajdhani"; }
+  font-family: "Exo 2"; }
 
 ion-header-bar h1,
 ion-header-bar h1,
@@ -9860,6 +9860,7 @@ ion-header-bar h6 {
 #stat-rate-container {
   float: left;
   width: 46%;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.2);
   text-align: right; }
 
@@ -9908,6 +9909,7 @@ ion-header-bar h6 {
 #gear-rate-container {
   float: left;
   width: 44%;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.2);
   text-align: right; }
 
@@ -9922,7 +9924,9 @@ ion-header-bar h6 {
 
 #minion-grid {
   float: left;
-  width: 100%; }
+  width: 100%;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.75); }
 
 #minion-grid-column-headers {
   display: flex;
@@ -10031,6 +10035,7 @@ ion-header-bar h6 {
   position: relative;
   float: left;
   width: 100%;
+  background-color: #282828;
   -webkit-transition: background-color 100ms;
   transition: background-color 100ms; }
 
@@ -10045,20 +10050,21 @@ ion-header-bar h6 {
   font-size: 20px;
   cursor: pointer; }
 
-.minion-grid-row[data-building="hut"] {
-  border-bottom: 1px solid #202020;
-  -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.75);
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.75);
-  z-index: 2; }
-  .minion-grid-row[data-building="hut"] .minion-grid-cell {
-    cursor: default;
-    background-color: #222; }
-  .minion-grid-row[data-building="hut"] .cell-bar-fill {
-    background-color: #29BF65; }
+.minion-grid-row[data-building="hut"] .minion-grid-cell {
+  cursor: default; }
+
+.minion-grid-row[data-building="hut"] .minion-grid-cell.first {
+  cursor: pointer; }
+
+.minion-grid-row[data-building="hut"] .cell-bar-fill {
+  background-color: #29BF65; }
 
 .minion-grid-cell.first {
   text-align: right;
-  font-size: 20px; }
+  font-size: 20px;
+  background-color: #222;
+  border-right: 1px solid #1a1a1a;
+  padding: 0; }
   .minion-grid-cell.first .fa {
     color: white;
     width: 30px;
@@ -10074,7 +10080,7 @@ ion-header-bar h6 {
   background-color: #333; }
 
 .minion-grid-cell.active .cell-content {
-  background-color: #383838;
+  background-color: #024F62;
   color: white; }
 
 .minion-grid-cell.first .cell-content {
@@ -10102,12 +10108,22 @@ ion-header-bar h6 {
   color: rgba(255, 255, 255, 0.7);
   background-color: #024F62;
   opacity: .85;
-  -webkit-transition: color 100ms, background-color 100ms, opacity 100ms;
-  transition: color 100ms, background-color 100ms, opacity 100ms; }
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  -webkit-transition: color 100ms, background-color 100ms, opacity 100ms, box-shadow 100ms;
+  transition: color 100ms, background-color 100ms, opacity 100ms, box-shadow 100ms; }
 
-.cell-button:hover,
+.cell-button:hover {
+  color: white;
+  opacity: 1;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }
+
 .cell-button:active {
-  opacity: 1; }
+  color: rgba(255, 255, 255, 0.2);
+  opacity: 1;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
 
 .add-minion-button {
   top: 0; }
@@ -10129,12 +10145,6 @@ ion-header-bar h6 {
   height: 60px;
   line-height: 60px;
   text-align: center; }
-
-.cell-button:hover {
-  color: white; }
-
-.cell-button:active {
-  color: rgba(255, 255, 255, 0.2); }
 
 .minion-grid-cell.active .cell-buttons {
   visibility: visible;
@@ -10160,18 +10170,67 @@ ion-header-bar h6 {
 .cell-bar-fill[data-percent="100.0"] {
   background-color: #29BF65; }
 
-.fa.fa-database {
-  color: #FFE875;
+.minion-tab-building-container {
+  position: relative;
+  z-index: -1;
+  float: left;
+  width: 100%;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.75); }
+  .minion-tab-building-container .building-info-container {
+    float: left;
+    width: 20%;
+    padding: 10px 1%;
+    line-height: 28px;
+    font-size: 20px;
+    background-color: #222;
+    border-right: 1px solid #1a1a1a; }
+  .minion-tab-building-container .building-buy-buttons {
+    float: left;
+    width: 80%;
+    padding-top: 10px; }
+  .minion-tab-building-container .building-buy-button {
+    float: left;
+    width: 30%;
+    height: 40px;
+    margin-left: 2.5%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    background-color: #024F62;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 100ms;
+    transition: all 100ms; }
+  .minion-tab-building-container .building-buy-button:hover {
+    color: white;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }
+  .minion-tab-building-container .building-buy-button:active {
+    width: calc(30% - 2px);
+    height: 38px;
+    margin-left: calc(2.5% + 1px);
+    margin-right: 1px;
+    margin-top: 1px;
+    color: rgba(255, 255, 255, 0.2);
+    line-height: 38px;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+
+ion-content .fa.fa-database {
+  color: #FFDD61;
   font-size: .8em; }
 
-.fa.fa-book {
-  color: #FFE875; }
+ion-content .fa.fa-book {
+  color: #FFDD61; }
 
-.fa.fa-bolt {
-  color: #FFE875; }
+ion-content .fa.fa-bolt {
+  color: #FFDD61; }
 
-.fa.fa-user {
+ion-content .fa.fa-user {
   color: #a8a8a8; }
 
-.fa.fa-home {
+ion-content .fa.fa-building {
   color: #a8a8a8; }

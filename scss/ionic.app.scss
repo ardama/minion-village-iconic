@@ -43,7 +43,7 @@ $tertiary-2: #29BF65;
 $tertiary-3: #00903A;
 $tertiary-4: #00712E;
 
-$gold: #FFE875;
+$gold: #FFDD61;
 $knowledge: #33cd5f;
 $favor: #6B46E5;
 
@@ -101,7 +101,7 @@ $box-shadow-light: rgba(0,0,0,.5) !default;
 // GENERIC ELEMENTS /////////////////////////////////////
 /////////////////////////////////////////////////////////
 body {
-  font-family: "Rajdhani";
+  font-family: "Exo 2";
 }
 
 
@@ -268,6 +268,7 @@ ion-header-bar h6, {
   float: left;
   width: 46%;
 
+  font-size: 16px;
   color: $light-text-disabled;
   text-align: right;
 }
@@ -327,6 +328,7 @@ ion-header-bar h6, {
   float: left;
   width: 44%;
 
+  font-size: 16px;
   color: $light-text-disabled;
   text-align: right;
 }
@@ -347,6 +349,7 @@ ion-header-bar h6, {
 #minion-grid {
   float: left;
   width: 100%;
+  @include box-shadow(0 0 3px $box-shadow);
 }
 
 #minion-grid-column-headers {
@@ -482,7 +485,7 @@ ion-header-bar h6, {
   position: relative;
   float: left;
   width: 100%;
-
+  background-color: $gray-dark-5;
   @include transition(background-color 100ms);
 }
 
@@ -501,14 +504,17 @@ ion-header-bar h6, {
 }
 
 .minion-grid-row[data-building="hut"] {
-  border-bottom: 1px solid $gray-dark-3;
-  @include box-shadow(0 0 3px 0 $box-shadow);
-  z-index: 2;
+  // border-bottom: 1px solid $gray-dark-3;
+  // @include box-shadow(0 0 3px 0 $box-shadow);
+  // z-index: 2;
 
  .minion-grid-cell {
     cursor: default;
-    background-color: $gray-dark-4;
   }
+  .minion-grid-cell.first {
+    cursor: pointer;
+  }
+
 
   .cell-bar-fill {
     background-color: $tertiary-2;
@@ -519,6 +525,9 @@ ion-header-bar h6, {
 .minion-grid-cell.first {
   text-align: right;
   font-size: 20px;
+  background-color: $gray-dark-4;
+  border-right: 1px solid $gray-dark-2;
+  padding: 0;
 
   .fa {
     color: $light-text-primary;
@@ -539,7 +548,7 @@ ion-header-bar h6, {
 }
 
 .minion-grid-cell.active .cell-content {
-  background-color: $primary-0;
+  background-color: $primary-4;
   color: $light-text-primary;
 }
 
@@ -579,11 +588,13 @@ ion-header-bar h6, {
 }
 
 .cell-button:hover {
+  color: $light-text-primary;
   opacity: 1;
   @include box-shadow(0 1px 4px 0 $box-shadow-light);
 }
 
 .cell-button:active {
+  color: $light-text-disabled;
   opacity: 1;
   @include box-shadow(none);
 }
@@ -611,14 +622,6 @@ ion-header-bar h6, {
   height: 60px;
   line-height: 60px;
   text-align: center;
-}
-
-.cell-button:hover {
-  color: $light-text-primary;
-}
-
-.cell-button:active {
-  color: $light-text-disabled;
 }
 
 .minion-grid-cell.active .cell-buttons {
@@ -651,41 +654,90 @@ ion-header-bar h6, {
   background-color: $tertiary-2;
 }
 
-// .minion-grid-row.active .cell-buttons {
-//   visibility: hidden;
-//   opacity: 0;
-// }
-
-// .minion-grid-row.active .first .cell-buttons {
-//   visibility: visible;
-//   opacity: .8;
-// }
-
 /////////////////////////////////////////////////////////
 // CELL PARTIAL /////////////////////////////////////////
 /////////////////////////////////////////////////////////
+.minion-tab-building-container {
+  position: relative;
+  z-index: -1;
+  float: left;
+  width: 100%;
+  @include box-shadow(0 0 3px $box-shadow);
 
+
+  .building-info-container {
+    float: left;
+    width: 20%;
+
+    padding: 10px 1%;
+    line-height: 28px;
+    font-size: 20px;
+    background-color: $gray-dark-4;
+    border-right: 1px solid $gray-dark-2;
+  }
+
+  .building-buy-buttons {
+    float: left;
+    width: 80%;
+    padding-top: 10px;
+  }
+
+  .building-buy-button {
+    float: left;
+    width: 30%;
+    height: 40px;
+    margin-left: 2.5%;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+
+    background-color: $primary-4;
+    color: $light-text-secondary;
+    cursor: pointer;
+
+    @include box-shadow(0 1px 3px 0 $box-shadow-light);
+    @include transition(all 100ms);
+  }
+
+  .building-buy-button:hover {
+    color: $light-text-primary;
+    @include box-shadow(0 1px 4px 0 $box-shadow-light);
+  }
+
+  .building-buy-button:active {
+    width: calc(30% - 2px);
+    height: 38px;
+    margin-left: calc(2.5% + 1px);
+    margin-right: 1px;
+    margin-top: 1px;
+    color: $light-text-disabled;
+    line-height: 38px;
+    @include box-shadow(none);
+  }
+}
 
 
 
 /////////////////////////////////////////////////////////
 // OTHER ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-.fa.fa-database {
-  color: $gold;
-  font-size: .8em;
-}
-.fa.fa-book {
-  color: $gold;
-}
-.fa.fa-bolt {
-  color: $gold;
-}
-.fa.fa-user {
-  color: $gray-mid-9;
-}
-.fa.fa-home {
-  color: $gray-mid-9;
+ion-content {
+  .fa.fa-database {
+    color: $gold;
+    font-size: .8em;
+  }
+  .fa.fa-book {
+    color: $gold;
+  }
+  .fa.fa-bolt {
+    color: $gold;
+  }
+  .fa.fa-user {
+    color: $gray-mid-9;
+  }
+  .fa.fa-building {
+    color: $gray-mid-9;
+  }
 }
 
 /////////////////////////////////////////////////////////

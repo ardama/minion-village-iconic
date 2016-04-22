@@ -11,7 +11,7 @@
     <!-- <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"> -->
     <!-- <script src="lib/ionic/js/ionic.bundle.js"></script> -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Rajdhani:400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
 
@@ -51,7 +51,7 @@
               <div id="population-slash">/</div>
               <div id="population-stat-container">
                 {{g.buildings.hut.capacity}}
-                <i class="icon fa fa-home"></i>
+                <i class="icon fa fa-building"></i>
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
                 {{prettyIntCompact(g.favor)}}
               </div>
             </div>
-            <div id="stat-rate-container">
+            <div id="stat-rate-container" class="rate-container">
               <div id="gold-rate-container">
                 {{prettyIntCompact(g.goldRate)}} /s
               </div>
@@ -119,7 +119,7 @@
                 {{prettyIntCompact(g.gear.shield)}}
               </div>
             </div>
-            <div id="gear-rate-container">
+            <div id="gear-rate-container" class="rate-container">
               <div class="gear-rate" data-item="machete">
                 {{prettyIntCompact(g.gearRate)}} /s
               </div>
@@ -257,13 +257,15 @@
               <div class="minion-grid-cell first" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
                 </div>
+                <!--
                 <div class="cell-buttons">
                   <div class="remove-minion-button cell-button" ng-click="g.moveAllMinions(null, buildingName)">
                     <i class="fa fa-minus"></i>
                   </div>
                 </div>
+                -->
               </div>
-              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell" ng-click="showMinionCell(buildingName, minionType)">
+              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell" ng-click="showMinionRow(buildingName)">
                 <div class="cell-content">
                   {{g.minions[buildingName][minionType]}}
                 </div>
