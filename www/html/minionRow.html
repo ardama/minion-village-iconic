@@ -1,15 +1,4 @@
 <div class="minion-tab-building-container" data-building=["{{gridSelectedBuilding.name}}"]>
-  <div class="building-info-container">
-    <div class="building-count">
-      {{prettyIntCompact(gridSelectedBuilding.count)}} {{gridSelectedBuilding.display}}
-    </div>
-    <div class="building-capacity">
-      <i class="icon fa fa-building"></i> {{prettyIntCompact(gridSelectedBuilding.capacity)}}
-    </div>
-    <div class="building-cost">
-      <i class="icon fa fa-database"></i> {{prettyIntCompact(gridSelectedBuilding.cost.gold)}}
-    </div>
-  </div>
   <div class="building-buy-buttons">
     <div class="building-buy-button buy-1" ng-click="g.buyBuilding(gridSelectedBuilding.name, 1)">
       Buy 1
@@ -19,6 +8,20 @@
     </div>
     <div class="building-buy-button buy-1" ng-click="g.buyBuilding(gridSelectedBuilding.name, 100)">
       Buy 100
+    </div>
+  </div>
+  <div class="building-info-container">
+    <div class="building-count building-info top">
+      {{prettyIntCompact(gridSelectedBuilding.count)}} {{gridSelectedBuilding.display}}
+    </div>
+    <div class="building-cost building-info top">
+      <i class="icon fa fa-database"></i> {{prettyIntCompact(gridSelectedBuilding.cost.gold)}}
+    </div>
+    <div class="building-minions building-info">
+      <i class="icon fa fa-user"></i> {{prettyIntCompact(g.minions[gridSelectedBuilding.name].all)}}
+    </div>
+    <div class="building-capacity building-info ">
+      <i class="icon fa fa-building"></i> {{prettyIntCompact(gridSelectedBuilding.capacity)}}
     </div>
   </div>
 </div>

@@ -79,6 +79,14 @@ Building.prototype.Init = function(game, name, slots, cost, data) {
   this.capacity = 0;
   this.count = 0;
   this.display = getPlural(name, this.count).capitalize();
+  this.hasSpace = false;
+  this.isEmpty = true;
+};
+
+Building.prototype.updateSpaceVariables = function() {
+  var minions = this.game.minions[this.name].all;
+  this.hasSpace = this.capacity > minions;
+  this.isEmpty = minions <= 0;
 };
 
 Building.initializeBuildings = function(game) {

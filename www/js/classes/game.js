@@ -280,7 +280,7 @@ Game.prototype.updateStats = function() {
 /////////////////////////////////////////////////////////
 // USER ACTIONS /////////////////////////////////////////
 /////////////////////////////////////////////////////////
-Game.prototype.moveMinions = function(minions, type, newBuilding, currentBuilding) {
+Game.prototype.moveMinions = function(minions, type, newName, currentName) {
   if (minions == 'max') {
     minions = Infinity;
   }
@@ -288,13 +288,16 @@ Game.prototype.moveMinions = function(minions, type, newBuilding, currentBuildin
     return;
   }
 
-  currentBuilding = currentBuilding || HUT;
-  newBuilding = newBuilding || HUT;
-  var currentLocation = this.minions[currentBuilding];
-  var newLocation = this.minions[newBuilding];
+  currentName = currentName || HUT;
+  newName = newName || HUT;
+  var currentLocation = this.minions[currentName];
+  var newLocation = this.minions[newName];
+
+  var currentBuilding = this.buildings[currentName];
+  var newBuilding = this.buildings[newName];
 
   var currentCount = currentLocation[type];
-  var openSpots = this.buildings[newBuilding].capacity - newLocation[ALL];
+  var openSpots = newBuilding.capacity - newLocation[ALL];
   var minionsMoved = Math.min(minions, currentCount, openSpots);
 
   currentLocation[type] -= minionsMoved;
@@ -303,6 +306,8 @@ Game.prototype.moveMinions = function(minions, type, newBuilding, currentBuildin
   newLocation[ALL] += minionsMoved;
 
   if (minionsMoved > 0) {
+    currentBuilding.updateSpaceVariables();
+    newBuilding.updateSpaceVariables();
     this.statsUpdateRequired = true;
   }
 };
@@ -336,6 +341,7 @@ Game.prototype.buyBuilding = function(buildingName, count) {
     building.display = getPlural(building.name, building.count).capitalize();
     if (building.slots) {
       building.capacity += building.slots * bought;
+      building.updateSpaceVariables();
     }
   }
 };

@@ -1,4 +1,4 @@
-var version = '0.0.18';
+var version = '0.0.19';
 
 // Minion types
 var MELEE = 'melee';
@@ -222,31 +222,18 @@ $(window).load(function() {
       $(this).removeClass('highlight');
   });
 
-  // $('.minion-grid-cell.first, .minion-grid-cell.all').hover(
-  //   function(event) {
-  //     $(this).parent('.minion-grid-row').children('.minion-grid-cell').addClass('highlight');
-  //   }, function(event) {
-  //     $(this).parent('.minion-grid-row').children('.minion-grid-cell').removeClass('highlight');
-  // });
-
   $('.minion-grid-cell').click(function(event) {
-    if (!$(this).hasClass('first') && $(this).parent('.minion-grid-row').data('building') == 'hut') {
-      return;
-    }
-    var active = $(this).hasClass('active') && !$(this).parent('.minion-grid-row').hasClass('active');
+    var active = $(this).hasClass('active');
     $('.minion-grid-cell').removeClass('active highlight');
     $('.minion-grid-row').removeClass('active');
+    if (!$(this).hasClass('first') && $(this).parent('.minion-grid-row').data('building') == 'hut') {
+      $(this).parent('.minion-grid-row').children('.first').addClass('active');
+      return;
+    }
     if (!active) {
       $(this).addClass('active');
     }
   });
-
-  // $('.minion-grid-cell.first, .minion-grid-cell.all').click(function(event) {
-  //   var $row = $(this).parent('.minion-grid-row');
-  //   $(this).addClass('active');
-  //   $row.children('.minion-grid-cell').addClass('active');
-  //   $row.addClass('active');
-  // });
 
   $('.cell-buttons').click(function(event) {
     event.stopPropagation();

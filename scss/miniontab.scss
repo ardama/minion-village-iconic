@@ -1,0 +1,380 @@
+
+/////////////////////////////////////////////////////////
+// MINION GRID //////////////////////////////////////////
+/////////////////////////////////////////////////////////
+#minion-tab-content {
+  background-color: $gray-dark-5;
+  color: $light-text-primary;
+}
+#minion-grid-container {
+  float: left;
+  width: 100%;
+  color: $light-text-secondary;
+}
+
+#minion-grid {
+  float: left;
+  width: 100%;
+  @include box-shadow(0 0 3px $box-shadow);
+}
+
+#minion-grid-column-headers {
+  display: flex;
+  z-index: 3;
+  position: relative;
+  float: left;
+  width: 100%;
+  background-color: $gray-dark-4;
+  @include box-shadow(0px 0px 3px 0px $box-shadow);
+}
+
+.minion-grid-column-header {
+  position: relative;
+  float: left;
+  width: 20%;
+  height: 100%;
+  margin: auto;
+}
+
+.minion-grid-column-header.first {
+  min-height: 70px;
+}
+
+
+#minion-image-all {
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  width: calc(80% - 16px);
+  max-width: 60px;
+  height: 100%;
+
+  img {
+    position: absolute;
+    width: 45%;
+    max-width: 28px;
+    border-radius: 50%;
+  }
+
+  img[data-index="1"] {
+    top: calc(12px + 5%);
+    left: -25%
+  }
+
+  img[data-index="2"] {
+    bottom: 12px;
+    left: -50%
+  }
+  img[data-index="3"] {
+    bottom: 12px;
+    left: 0;
+  }
+  img.spacer {
+    display: block;
+    width: 100%;
+    width: 60px;
+  }
+
+}
+
+.minion-header-image {
+  float: left;
+  width: 100%;
+
+  padding: 12px;
+}
+
+.minion-header-image img {
+  display: block;
+  max-width: 60px;
+  width: 80%;
+  border-radius: 50%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  @include box-shadow(0 0 3px $box-shadow);
+}
+
+.minion-header-image img.blank {
+  @include box-shadow(none);
+}
+
+#minion-increment-buttons {
+  position: absolute;
+  float: left;
+
+  width: 100%;
+  height: 100%;
+}
+
+.minion-increment-button {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 50%;
+
+  text-align: center;
+  color: $light-text-secondary;
+  font-weight: bold;
+  cursor: pointer;
+  border-right: 1px solid $gray-dark-2;
+
+  @include transition(color 100ms, background-color 100ms, box-shadow 100ms);
+}
+
+.minion-increment-button.top {
+  border-bottom: 1px solid $gray-dark-2;
+}
+
+.minion-increment-button-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 16px;
+  line-height: 16px;
+
+  margin: auto;
+};
+
+.minion-increment-button.active {
+  color: $light-text-primary;
+  background-color: $primary-3;
+
+  @include box-shadow(0 0 3px 0 $box-shadow inset);
+}
+
+.minion-grid-row {
+  position: relative;
+  float: left;
+  width: 100%;
+  background-color: $gray-dark-5;
+  @include transition(background-color 100ms);
+}
+
+.minion-grid-cell {
+  position: relative;
+  float: left;
+  width: 20%;
+  height: 60px;
+  padding: 0 2px;
+
+  text-align: center;
+  line-height: 60px;
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.minion-grid-cell.first {
+  text-align: right;
+  font-size: 20px;
+  background-color: $gray-dark-4;
+  border-right: 1px solid $gray-dark-2;
+  padding: 0;
+
+  .fa {
+    color: $light-text-primary;
+    width: 30px;
+    text-align: center;
+  }
+}
+
+.cell-content {
+  width: 100%;
+  height: 100%;
+
+  @include transition(background-color 100ms, color 100ms);
+}
+
+.minion-grid-cell.highlight .cell-content {
+  background-color: $gray-dark-6;
+}
+
+.minion-grid-cell.active .cell-content {
+  background-color: $primary-3;
+  color: $light-text-primary;
+}
+
+.minion-grid-cell.first .cell-content {
+  padding-right: 8%;
+}
+
+.cell-buttons {
+  position: absolute;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  left: 100%;
+  top: 0;
+
+  width: 42px;
+  height: 100%;
+  cursor: default;
+  @include transition(visibility 100ms, opacity 100ms);
+}
+
+.cell-button {
+  position: absolute;
+  left: 2px;
+
+  width: 40px;
+  height: 28px;
+
+  line-height: 28px;
+  font-size: 12px;
+
+  color: $light-text-secondary;
+  background-color: $primary-3;
+  opacity: .85;
+  cursor: pointer;
+
+  @include box-shadow(0 1px 3px 0 $box-shadow-light);
+  @include transition(color 100ms, background-color 100ms, opacity 100ms, box-shadow 100ms);
+}
+
+.cell-button:hover {
+  color: $light-text-primary;
+  opacity: 1;
+  @include box-shadow(0 1px 4px 0 $box-shadow-light);
+}
+
+.cell-button:active {
+  color: $light-text-disabled;
+  opacity: 1;
+  @include box-shadow(none);
+}
+
+.cell-button.disabled,
+.cell-button.disabled:hover,
+.cell-button.disabled:active {
+  color: $light-text-disabled;
+  background-color: $primary-4;
+  opacity: .3;
+  cursor: default;
+}
+
+.add-minion-button {
+  top: 0;
+}
+
+.remove-minion-button {
+  bottom: 0;
+}
+
+.first .remove-minion-button {
+  left: 2px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.all .cell-buttons {
+  left: -42px;
+}
+.all .remove-minion-button {
+  left: 0;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.minion-grid-cell.active .cell-buttons {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cell-bar {
+  float: left;
+  margin-top: 22px;
+  margin-left: 5%;
+  width: 90%;
+  height: 16px;
+
+  border-radius: 10px;
+
+  background-color: $white;
+  overflow: hidden;
+  @include transition(background-color 200ms);
+}
+
+.cell-bar.disabled {
+  background-color: $light-text-disabled;
+}
+
+.cell-bar-fill {
+  float: left;
+  height: 100%;
+
+  background-color: $tertiary-2;
+  @include transition(background-color 200ms, width 200ms);
+}
+
+.cell-bar-fill[data-percent="100.0"] {
+  background-color: $tertiary-2;
+}
+
+/////////////////////////////////////////////////////////
+// CELL PARTIAL /////////////////////////////////////////
+/////////////////////////////////////////////////////////
+.minion-tab-building-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  z-index: -1;
+  width: 100%;
+  max-width: 800px;
+
+
+  .building-info-container {
+    float:left;
+    flex-grow: 3;
+    width: 240px;
+    min-width: 60%;
+  }
+
+  .building-info {
+    flex-grow: 1;
+    width: 100%;
+
+    padding: 6px;
+    line-height: 22px;
+    font-size: 18px;
+  }
+
+  .building-buy-buttons {
+    flex-grow: 2;
+    width: 160px;
+    min-width: 40%;
+  }
+
+  .building-buy-button {
+    width: calc(100% - 8px);
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+
+    margin: 4px;
+
+    background-color: $primary-3;
+    color: $light-text-secondary;
+    cursor: pointer;
+
+    @include box-shadow(0 1px 3px 0 $box-shadow-light);
+    @include transition(all 100ms);
+  }
+
+  .building-buy-button:hover {
+    color: $light-text-primary;
+    @include box-shadow(0 1px 4px 0 $box-shadow-light);
+  }
+
+  .building-buy-button:active {
+    color: $light-text-disabled;
+    @include box-shadow(none);
+  }
+}
