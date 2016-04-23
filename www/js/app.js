@@ -1,4 +1,4 @@
-var version = '0.0.19';
+var version = '0.1.0';
 
 // Minion types
 var MELEE = 'melee';
@@ -148,6 +148,36 @@ var GameApp = angular.module('GameApp', ['ionic'])
     $scope.gridSelectedBuilding = $scope.g.buildings[buildingName];
   };
 
+  $scope.buildingPopoverShown = false;
+  $scope.buildingPopoverTarget = null;
+  $scope.showBuildingPopover = function(target) {
+    if (!target) {
+      $scope.buildingPopoverShown = false;
+      $scope.buildingPopoverTarget = null;
+      return;
+    }
+    var parent = $(target).parent('.minion-grid-row');
+    var first = parent.children('.first');
+    if (!first.hasClass('active') || $scope.buildingPopoverShown && first.is($scope.buildingPopoverTarget)) {
+      $scope.buildingPopoverShown = false;
+      $scope.buildingPopoverTarget = null;
+      return;
+    }
+
+    $scope.buildingPopoverShown = true;
+    $scope.buildingPopoverTarget = first;
+    var top = parent.position().top - 1;
+    var left = first.position().left + first.width() + 5;
+    var bottom = top + $('#grid-building-popover').height();
+    var bottomBound = $('#minion-grid').height();
+    var topShift = bottom - bottomBound;
+    if (topShift > 0) {
+      top -= topShift;
+    }
+    $('#grid-building-popover').css({top: top, left: left});
+  };
+
+
   // TODO: code cleanup
   // $scope.gridSelectedMinion = '';
   // $scope.showMinionCell = function(buildingName, minionType) {
@@ -228,11 +258,13 @@ $(window).load(function() {
     $('.minion-grid-row').removeClass('active');
     if (!$(this).hasClass('first') && $(this).parent('.minion-grid-row').data('building') == 'hut') {
       $(this).parent('.minion-grid-row').children('.first').addClass('active');
+      $scope.showBuildingPopover(this);
       return;
     }
     if (!active) {
       $(this).addClass('active');
     }
+    $scope.showBuildingPopover(this);
   });
 
   $('.cell-buttons').click(function(event) {
@@ -240,7 +272,10 @@ $(window).load(function() {
   });
 });
 
-
+$(window).resize(function() {
+  $scope.buildingPopoverShown = false;
+  $scope.buildingPopoverTarget = null;
+});
 
 var getImageUrl = function(name, folder) {
   if (folder)

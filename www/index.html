@@ -293,10 +293,54 @@
             </div>
           </div>
         </div>
-        <!-- selected row/cell partial -->
-        <div id="grid-selection-partial" ng-include="gridSelectionPartialUrl">
-        </div>
 
+        <div id="grid-building-popover" ng-class="buildingPopoverShown ? 'active' : ''">
+          <div id="building-popover-container" data-building=["{{gridSelectedBuilding.name}}"]>
+            <div class="building-popover-header">
+              <div class="building-count">
+              {{prettyIntCompact(gridSelectedBuilding.count)}} {{gridSelectedBuilding.display}}
+              </div>
+              <div class="close-button" ng-click="showBuildingPopover(null)">&times;</div>
+            </div>
+            <div class="building-population-container">
+              <div class="building-population-bar" ng-class="gridSelectedBuilding.capacity ? '' : 'disabled'">
+                <div class="building-population-bar-fill" data-percent="{{g.getCapacityPercent(gridSelectedBuilding.name)}}" style="width:{{g.getCapacityPercent(gridSelectedBuilding.name)}}%">
+                </div>
+              </div>
+              <div class="building-population-stats">
+                <div class="building-population-stat-container">
+                  <i class="icon fa fa-user"></i>
+                  {{g.minions[gridSelectedBuilding.name].all}}
+                </div>
+                <div class="building-population-slash">/</div>
+                <div class="building-capacity-stat-container">
+                  {{gridSelectedBuilding.capacity}}
+                  <i class="icon fa fa-building"></i>
+                </div>
+              </div>
+            </div>
+            <div class="building-buy-buttons">
+              <div class="building-buy-button buy-1" ng-click="g.buyBuilding(gridSelectedBuilding.name, 1)">
+                Buy 1
+                <div class="building-buy-price">
+                  <i class="fa fa-database"></i> {{prettyIntCompact(gridSelectedBuilding.cost.gold)}}
+                </div>
+              </div>
+              <div class="building-buy-button buy-1" ng-click="g.buyBuilding(gridSelectedBuilding.name, 10)">
+                Buy 10
+                <div class="building-buy-price">
+                  <i class="fa fa-database"></i> {{prettyIntCompact(gridSelectedBuilding.cost.gold)}}
+                </div>
+              </div>
+              <div class="building-buy-button buy-1" ng-click="g.buyBuilding(gridSelectedBuilding.name, 100)">
+                Buy 100
+                <div class="building-buy-price">
+                  <i class="fa fa-database"></i> {{prettyIntCompact(gridSelectedBuilding.cost.gold)}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 

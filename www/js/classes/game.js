@@ -455,6 +455,7 @@ Game.prototype.getPopulationPercent = function() {
 };
 
 Game.prototype.getCapacityPercent = function(buildingName) {
+  if (!buildingName) return;
   var percent;
   var capacity = this.buildings[buildingName].capacity;
   if (!capacity) percent = 0;

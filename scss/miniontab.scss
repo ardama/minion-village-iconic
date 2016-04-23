@@ -195,7 +195,7 @@
 }
 
 .minion-grid-cell.active .cell-content {
-  background-color: $primary-3;
+  background-color: $primary-0;
   color: $light-text-primary;
 }
 
@@ -294,7 +294,7 @@
   width: 90%;
   height: 16px;
 
-  border-radius: 10px;
+  border-radius: 8px;
 
   background-color: $white;
   overflow: hidden;
@@ -320,45 +320,144 @@
 /////////////////////////////////////////////////////////
 // CELL PARTIAL /////////////////////////////////////////
 /////////////////////////////////////////////////////////
-.minion-tab-building-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
-  z-index: -1;
+#grid-building-popover {
+  visibility: hidden;
+  position: absolute;
+  float: left;
+  opacity: 0;
+  width: 240px;
+
+  @include transition(visibility 100ms, opacity 100ms, height 200ms, top 200ms);
+}
+
+#grid-building-popover.active {
+  visibility: visible;
+  position: absolute;
+  opacity: .9;
+  background-color: $gray-dark-4;
+
+  @include box-shadow(0 0 3px 0 $box-shadow);
+}
+
+#grid-building-popover.active:hover {
+  opacity: 1;
+}
+
+
+#building-popover-container {
+  float: left;
   width: 100%;
-  max-width: 800px;
 
+  .building-popover-header {
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 8px;
 
-  .building-info-container {
-    float:left;
-    flex-grow: 3;
-    width: 240px;
-    min-width: 60%;
+    line-height: 20px;
+    font-size: 18px;
+
+    background-color: $primary-0;
+
+    .building-count {
+      float: left;
+    }
+    .close-button {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 30px;
+      height: 30px;
+
+      line-height: 24px;
+      font-size: 24px;
+      text-align: center;
+      color: $light-text-secondary;
+      cursor: pointer;
+      font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+    }
+    .close-button:hover {
+      color: $light-text-primary;
+    }
   }
 
-  .building-info {
-    flex-grow: 1;
-    width: 100%;
+  .building-population-container {
+    float:left;
+    width: 95%;
+    margin-left: 2.5%;
+  }
 
-    padding: 6px;
-    line-height: 22px;
-    font-size: 18px;
+  .building-population-bar {
+    float: left;
+    width: 100%;
+    height: 16px;
+    margin-top: 12px;
+    border-radius: 8px;
+
+    background-color: $white;
+    overflow: hidden;
+    @include transition(background-color 200ms);
+  }
+
+  .building-population-bar.disabled {
+    background-color: $light-text-disabled;
+  }
+
+  .building-population-bar-fill {
+    float: left;
+    height: 100%;
+
+    background-color: $tertiary-2;
+    @include transition(background-color 200ms, width 200ms);
+  }
+
+  .building-population-bar-fill[data-percent="100.0"] {
+    background-color: $tertiary-2;
+  }
+
+  .building-population-stats {
+    float: left;
+    width: 100%;
+    padding-top: 6px;
+    font-size: 16px;
+  }
+
+  .building-population-stat-container {
+    float: left;
+    width: 46%;
+    margin-left: 2%;
+  }
+
+  .building-population-slash {
+    float: left;
+    width: 4%;
+    text-align: center;
+  }
+
+  .building-capacity-stat-container {
+    float: left;
+    width: 46%;
+    margin-right: 2%;
+    text-align: right;
   }
 
   .building-buy-buttons {
-    flex-grow: 2;
-    width: 160px;
-    min-width: 40%;
+    float: left;
+    padding: 4px 8px 8px 8px;
+    width: 100%;
   }
 
   .building-buy-button {
-    width: calc(100% - 8px);
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
+    float: left;
+    width: 100%;
+    height: 36px;
+
+    padding: 0 8px;
+    text-align: left;
+    line-height: 36px;
     font-weight: bold;
 
-    margin: 4px;
+    margin-top: 8px;
 
     background-color: $primary-3;
     color: $light-text-secondary;
@@ -377,4 +476,11 @@
     color: $light-text-disabled;
     @include box-shadow(none);
   }
+
+  .building-buy-price {
+    float: right;
+    width: 70%;
+    text-align: right;
+  }
+
 }
