@@ -172,7 +172,7 @@
 .minion-grid-cell.first {
   text-align: right;
   font-size: 20px;
-  background-color: $gray-dark-4;
+//  background-color: $gray-dark-4;
   border-right: 1px solid $gray-dark-2;
   padding: 0;
 
@@ -201,6 +201,34 @@
 
 .minion-grid-cell.first .cell-content {
   padding-right: 8%;
+}
+
+
+.minion-grid-row[data-building="idle"],
+.minion-grid-row[data-building="workable"],
+.minion-grid-row[data-building="missions"] {
+
+  .minion-grid-cell {
+    line-height: 24px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .minion-grid-cell.first {
+    width: 100%;
+    border-top: 1px solid $gray-dark-2;
+    border-bottom: 1px solid $gray-dark-2;
+    border-right: none;
+    background-color: $gray-dark-4;
+  }
+
+
+  .cell-content {
+    padding-left: 16px;
+    color: $light-text-disabled;
+    text-align: left;
+
+  }
 }
 
 .cell-buttons {
@@ -333,14 +361,13 @@
 #grid-building-popover.active {
   visibility: visible;
   position: absolute;
-  opacity: .9;
+  opacity: 1;
   background-color: $gray-dark-4;
 
   @include box-shadow(0 0 3px 0 $box-shadow);
 }
 
 #grid-building-popover.active:hover {
-  opacity: 1;
 }
 
 

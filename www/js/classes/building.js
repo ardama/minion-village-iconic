@@ -48,6 +48,20 @@ var MINION_BUILDINGS = [
   EXPEDITION
 ];
 
+var MINION_TAB_ROWS = [
+  'idle',
+  HUT,
+  'workable',
+  FARM,
+  WORKSHOP,
+  LIBRARY,
+  SHRINE,
+  TOWER,
+  'missions',
+  RAID,
+  EXPEDITION
+];
+
 var BUILDING_ICONS = {};
 BUILDING_ICONS[HUT] = 'fa-home';
 BUILDING_ICONS[FARM] = 'fa-database';

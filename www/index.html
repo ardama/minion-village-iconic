@@ -253,43 +253,51 @@
               </div>
             </div>
 
-            <div ng-repeat="buildingName in MINION_BUILDINGS" class="minion-grid-row" data-building="{{buildingName}}" ng-click="showMinionRow(buildingName)">
-              <div class="minion-grid-cell first">
-                <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
-                </div>
-              </div>
-              <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
-                <div class="cell-content">
-                  {{g.minions[buildingName][minionType]}}
-                </div>
-                <div class="cell-buttons">
-                  <div class="add-minion-button cell-button"
-                       ng-class="g.buildings[buildingName].hasSpace ? '' : 'disabled'"
-                       ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
-                    <i class="fa fa-plus"></i>
-                  </div>
-                  <div class="remove-minion-button cell-button"
-                       ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
-                       ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
-                    <i class="fa fa-minus"></i>
+            <div ng-repeat="buildingName in MINION_TAB_ROWS" class="minion-grid-row" data-building="{{buildingName}}" ng-click="showMinionRow(buildingName)">
+              <div ng-if="MINION_BUILDINGS.indexOf(buildingName) > -1">
+                <div class="minion-grid-cell first">
+                  <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
                   </div>
                 </div>
-              </div>
-              <div class="minion-grid-cell all">
-                <div class="cell-content">
-                  <div class="cell-bar" ng-class="g.buildings[buildingName].capacity ? '' : 'disabled'">
-                    <div class="cell-bar-fill" data-percent="{{g.getCapacityPercent(buildingName)}}" style="width:{{g.getCapacityPercent(buildingName)}}%">
+                <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
+                  <div class="cell-content">
+                    {{g.minions[buildingName][minionType] | zeroToDash}}
+                  </div>
+                  <div class="cell-buttons">
+                    <div class="add-minion-button cell-button"
+                         ng-class="g.buildings[buildingName].hasSpace ? '' : 'disabled'"
+                         ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
+                      <i class="fa fa-plus"></i>
+                    </div>
+                    <div class="remove-minion-button cell-button"
+                         ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
+                         ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
+                      <i class="fa fa-minus"></i>
                     </div>
                   </div>
                 </div>
-                <div class="cell-buttons">
-                  <div class="remove-minion-button cell-button"
-                       ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
-                       ng-click="g.moveAllMinions(null, buildingName)">
-                    <i class="fa fa-minus"></i>
+                <div class="minion-grid-cell all">
+                  <div class="cell-content">
+                    <div class="cell-bar" ng-class="g.buildings[buildingName].capacity ? '' : 'disabled'">
+                      <div class="cell-bar-fill" data-percent="{{g.getCapacityPercent(buildingName)}}" style="width:{{g.getCapacityPercent(buildingName)}}%">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cell-buttons">
+                    <div class="remove-minion-button cell-button"
+                         ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
+                         ng-click="g.moveAllMinions(null, buildingName)">
+                      <i class="fa fa-minus"></i>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div ng-if="MINION_BUILDINGS.indexOf(buildingName) == -1">
+                <div class="minion-grid-cell first">
+                  <div class="cell-content" ng-bind-html="rowHeaders[buildingName]">
+                  </div>
+                </div>
+              <div>
             </div>
           </div>
         </div>
