@@ -107,7 +107,7 @@ var GameApp = angular.module('GameApp', ['ionic'])
   });
   $scope.$watch(function() {
     if (!$scope.firstColumnHeader || $scope.firstColumnHeader.length == 0)
-      $scope.firstColumnHeader = $('.minion-grid-cell.first');
+      $scope.firstColumnHeader = $('.minion-grid-cell.first').last();
     return $scope.firstColumnHeader.width();
   }, function(newValue, oldValue) {
     for (var i = 0; i < BUILDINGS.length; i++) {
@@ -167,13 +167,16 @@ var GameApp = angular.module('GameApp', ['ionic'])
     $scope.buildingPopoverTarget = first;
     var top = parent.position().top - 1;
     var left = first.position().left + first.width() + 5;
-    var bottom = top + $('#grid-building-popover').height();
+    var rowHeight = first.height();
+    var popoverHeight = $('#grid-building-popover').height();
+    var bottom = top + popoverHeight
     var bottomBound = $('#minion-grid').height();
     var topShift = bottom - bottomBound;
-    if (topShift > 0) {
-      top -= topShift;
+    if (bottom > bottomBound) {
+      $('#grid-building-popover').css({top: top + rowHeight - popoverHeight, left: left});
+    } else {
+      $('#grid-building-popover').css({top: top, left: left});
     }
-    $('#grid-building-popover').css({top: top, left: left});
   };
 
 
@@ -184,8 +187,6 @@ var GameApp = angular.module('GameApp', ['ionic'])
   //   $scope.gridSelectedBuilding = buildingName;
   //   $scope.gridSelectedMinion = minionType;
   // };
-
-  // TODO: fix rowHeaders
 
   $scope.rowHeaders = {'idle': 'Idle', 'workable': 'Workable', 'missions': 'Missions'};
   $scope.MONSTERS = MONSTERS;
