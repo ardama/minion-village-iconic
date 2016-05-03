@@ -2,7 +2,7 @@
 // SIDEMENU /////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 #stats-sidemenu {
-  background-color: $gray-dark-4;
+  background-color: $gray-dark-2;
   color: $light-text-primary;
 }
 
@@ -40,7 +40,7 @@
   margin: 20px;
 
   border-radius: 50%;
-  border: 0 solid $gray-dark-6;
+  border: 0 solid $gray-dark-2;
 }
 
 #population-container {
@@ -80,7 +80,7 @@
 
 #minions-stat-container {
   float: left;
-  width: 46%;
+  width: 42%;
   margin-left: 2%;
 }
 
@@ -93,7 +93,7 @@
 
 #population-stat-container {
   float: left;
-  width: 46%;
+  width: 50%;
   margin-right: 2%;
 
   text-align: right;

@@ -92,3 +92,40 @@ ion-content {
     color: $gray-mid-9;
   }
 }
+
+.ripple {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  border-radius: 100%;
+  transform: scale(.3);
+}
+
+.cell-button .ripple {
+	background: $light-text-primary;
+  opacity: .2;
+}
+
+.minion-increment-button .ripple {
+  background: $primary-3;
+  opacity: 1;
+}
+
+.ripple.animate {
+  animation: ripple 0.35s linear;
+}
+
+.minion-increment-button .ripple.animate {
+  animation: ripple 0.35s linear;
+}
+
+@keyframes ripple {
+	/*scale the element to 300% to safely cover the entire link and fade it out*/
+  0% {visibility: visible}
+	100% {opacity: 0; transform: scale(3);}
+}
+
+@keyframes ripple-reverse {
+	/*scale the element to 300% to safely cover the entire link and fade it out*/
+	100% {opacity: 1; transform: scale(3);}
+}

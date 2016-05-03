@@ -45,13 +45,12 @@
             </div>
             <div id="population-stats">
               <div id="minions-stat-container">
-                <i class="icon fa fa-user"></i>
                 {{g.minionCounts.all}}
               </div>
               <div id="population-slash">/</div>
               <div id="population-stat-container">
                 {{g.buildings.hut.capacity}}
-                <i class="icon fa fa-building"></i>
+                <i class="icon fa fa-user"></i>
               </div>
             </div>
           </div>
@@ -219,6 +218,17 @@
                   </div>
                 </div>
               </div>
+              <div class="minion-grid-column-header all">
+                <div class="minion-header-border-left"></div>
+                <div class="minion-header-image">
+                  <img class="blank" src="img/blank.png" class="spacer"/>
+                  <div id="minion-image-all">
+                    <img src="img/monster/Melee_Minion.png" data-index="1"/>
+                    <img src="img/monster/Caster_Minion.png" data-index="2"/>
+                    <img src="img/monster/Siege_Minion.png" data-index="3"/>
+                  </div>
+                </div>
+              </div>
               <div class="minion-grid-column-header">
                 <div class="minion-header-border-left"></div>
                 <div class="minion-header-border-right"></div>
@@ -240,67 +250,69 @@
                   <img src="img/monster/Siege_Minion.png">
                 </div>
               </div>
-              <div class="minion-grid-column-header all">
-                <div class="minion-header-border-left"></div>
-                <div class="minion-header-image">
-                  <img class="blank" src="img/blank.png" class="spacer"/>
-                  <div id="minion-image-all">
-                    <img src="img/monster/Melee_Minion.png" data-index="1"/>
-                    <img src="img/monster/Caster_Minion.png" data-index="2"/>
-                    <img src="img/monster/Siege_Minion.png" data-index="3"/>
+            </div>
+
+            <div ng-repeat="buildingType in BUILDING_TYPES" class="minion-grid-section" data-type="{{buildingType}}">
+              <div class="minion-grid-row header">
+                <div class="minion-grid-cell first">
+                  <div class="cell-content" ng-bind-html="rowHeaders[buildingType] | rawHtml">
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div ng-repeat="buildingName in MINION_TAB_ROWS" class="minion-grid-row" data-building="{{buildingName}}" ng-click="showMinionRow(buildingName)">
-              <div ng-if="MINION_BUILDINGS.indexOf(buildingName) > -1">
-                <div class="minion-grid-cell first">
-                  <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
-                  </div>
-                </div>
-                <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
-                  <div class="cell-content">
-                    {{g.minions[buildingName][minionType] | zeroToDash}}
-                  </div>
-                  <div class="cell-buttons">
-                    <div class="add-minion-button cell-button"
-                         ng-class="g.buildings[buildingName].hasSpace ? '' : 'disabled'"
-                         ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
-                      <i class="fa fa-plus"></i>
-                    </div>
-                    <div class="remove-minion-button cell-button"
-                         ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
-                         ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
-                      <i class="fa fa-minus"></i>
+              <div ng-repeat="buildingName in BUILDING_GROUPS[buildingType]" class="minion-grid-row building {{buildingType}}" data-building="{{buildingName}}" ng-click="showMinionRow(buildingName)">
+                <div class="minion-grid-row-primary">
+                  <div class="minion-grid-cell first">
+                    <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
                     </div>
                   </div>
-                </div>
-                <div class="minion-grid-cell all">
-                  <div class="cell-content">
-                    <div class="cell-bar" ng-class="g.buildings[buildingName].capacity ? '' : 'disabled'">
-                      <div class="cell-bar-fill" data-percent="{{g.getCapacityPercent(buildingName)}}" style="width:{{g.getCapacityPercent(buildingName)}}%">
+                  <div class="minion-grid-cell all">
+                    <div class="cell-content">
+                      <div class="cell-bar" ng-class="g.buildings[buildingName].capacity ? '' : 'disabled'">
+                        <div class="cell-bar-fill" data-percent="{{g.getCapacityPercent(buildingName)}}" style="width:{{g.getCapacityPercent(buildingName)}}%">
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="cell-buttons">
-                    <div class="remove-minion-button cell-button"
-                         ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
-                         ng-click="g.moveAllMinions(null, buildingName)">
-                      <i class="fa fa-minus"></i>
+                  <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
+                    <div class="cell-content">
+                      {{g.minions[buildingName][minionType] | zeroToDash}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="minion-grid-row-secondary">
+                  <div class="minion-grid-cell first all">
+                    <div class="cell-content">
+                      {{g.minions[buildingName].all}} <text class="building-capacity">/ {{g.buildings[buildingName].capacity}} </text><i class="fa fa-user"></i>
+                    </div>
+                    <div class="cell-buttons">
+                      <div class="remove-minion-button cell-button"
+                           ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
+                           ng-click="g.moveAllMinions(null, buildingName)">
+                        <i class="fa fa-ban"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
+                    <div class="cell-buttons">
+                      <div class="add-minion-button cell-button"
+                           ng-class="g.buildings[buildingName].hasSpace ? '' : 'disabled'"
+                           ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
+                        <i class="fa fa-plus"></i>
+                      </div>
+                      <div class="remove-minion-button cell-button"
+                           ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
+                           ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
+                        <i class="fa fa-minus"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div ng-if="MINION_BUILDINGS.indexOf(buildingName) == -1">
-                <div class="minion-grid-cell first">
-                  <div class="cell-content" ng-bind-html="rowHeaders[buildingName]">
-                  </div>
-                </div>
-              <div>
             </div>
           </div>
         </div>
+
 
         <div id="grid-building-popover" ng-class="buildingPopoverShown ? 'active' : ''">
           <div id="building-popover-container" data-building=["{{gridSelectedBuilding.name}}"]>
@@ -317,13 +329,12 @@
               </div>
               <div class="building-population-stats">
                 <div class="building-population-stat-container">
-                  <i class="icon fa fa-user"></i>
                   {{g.minions[gridSelectedBuilding.name].all}}
                 </div>
                 <div class="building-population-slash">/</div>
                 <div class="building-capacity-stat-container">
                   {{gridSelectedBuilding.capacity}}
-                  <i class="icon fa fa-building"></i>
+                  <i class="icon fa fa-user"></i>
                 </div>
               </div>
             </div>

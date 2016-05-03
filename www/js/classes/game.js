@@ -35,20 +35,20 @@ Game.prototype.Init = function(scope) {
   this.gearRateBonus = 1;
 
   // missions
-  this.expeditionLevel = 1;
-  this.raidLevel = 1;
+  this.jungleLevel = 1;
+  this.siegeLevel = 1;
   this.waveLevel = 1;
 
   // Event Timers
   this.minionTime = 5;
-  this.expeditionTime = 2 * 60;
-  this.raidTime = 3 * 60;
+  this.jungleTime = 2 * 60;
+  this.siegeTime = 3 * 60;
   this.waveTime = 10 * 60;
 
   this.timers = {};
   this.timers.minion = 0;
-  this.timers.expedition = 0;
-  this.timers.raid = 0;
+  this.timers.jungle = 0;
+  this.timers.siege = 0;
   this.timers.wave = 0;
 
   // Minions
@@ -63,10 +63,10 @@ Game.prototype.Init = function(scope) {
   this.minions[LIBRARY] = {melee: 0, caster: 0, siege: 0, all: 0};
   this.minions[TOWER] = {melee: 0, caster: 0, siege: 0, all: 0};
 
-  this.minions[RAID] = {melee: 0, caster: 0, siege: 0, all: 0};
-  this.minions[RAID_RALLY] = {melee: 0, caster: 0, siege: 0, all: 0};
-  this.minions[EXPEDITION] = {melee: 0, caster: 0, siege: 0, all: 0};
-  this.minions[EXPEDITION_RALLY] = {melee: 0, caster: 0, siege: 0, all: 0};
+  this.minions[SIEGE] = {melee: 0, caster: 0, siege: 0, all: 0};
+  this.minions[SIEGE_RALLY] = {melee: 0, caster: 0, siege: 0, all: 0};
+  this.minions[JUNGLE] = {melee: 0, caster: 0, siege: 0, all: 0};
+  this.minions[JUNGLE_RALLY] = {melee: 0, caster: 0, siege: 0, all: 0};
 
   this.minionCounts = {melee: 0, caster: 0, siege: 0, all: 0};
 
@@ -88,8 +88,8 @@ Game.prototype.Init = function(scope) {
   this.monsters = Monster.initializeMonsters(this);
   this.monsterCounts = {};
   this.monsterCounts[STABLE] = {};
-  this.monsterCounts[RAID] = {};
-  this.monsterCounts[RAID_RALLY] = {};
+  this.monsterCounts[SIEGE] = {};
+  this.monsterCounts[SIEGE_RALLY] = {};
   this.monsterCounts[TOWER] = {};
 
 };
@@ -134,8 +134,8 @@ Game.prototype.applyTime = function(time) {
   this.addGear(this.gearRate * time);
 
   this.addMinionTime(time);
-  this.addExpeditionTime(time);
-  this.addRaidTime(time);
+  this.addJungleTime(time);
+  this.addSiegeTime(time);
   this.addWaveTime(time);
 
   this.time += time;
@@ -151,28 +151,28 @@ Game.prototype.addMinionTime = function(time) {
   this.timers.minion = Math.min(this.timers.minion, this.minionTime);
 };
 
-Game.prototype.addExpeditionTime = function(time) {
-  if(isNaN(this.timers.expedition)) {
+Game.prototype.addJungleTime = function(time) {
+  if(isNaN(this.timers.jungle)) {
     return;
   }
 
-  this.timers.expedition += time;
-  if (this.timers.expedition > this.expeditionTime) {
-    this.getExpeditionOutcome();
+  this.timers.jungle += time;
+  if (this.timers.jungle > this.jungleTime) {
+    this.getJungleOutcome();
   }
-  this.timers.expedition = null;
+  this.timers.jungle = null;
 };
 
-Game.prototype.addRaidTime = function(time) {
-  if(isNaN(this.timers.raid)) {
+Game.prototype.addSiegeTime = function(time) {
+  if(isNaN(this.timers.siege)) {
     return;
   }
 
-  this.timers.raid += time;
-  if (this.timers.raid > this.raidTime) {
-    this.getRaidOutcome();
+  this.timers.siege += time;
+  if (this.timers.siege > this.siegeTime) {
+    this.getSiegeOutcome();
   }
-  this.timers.raid = null;
+  this.timers.siege = null;
 };
 
 Game.prototype.addWaveTime = function(time) {
@@ -346,15 +346,15 @@ Game.prototype.buyBuilding = function(buildingName, count) {
   }
 };
 
-Game.prototype.launchExpedition = function() {
-  this.moveAllMinions(EXPEDITION_RALLY, EXPEDITION);
-  this.timers.expedition = 0;
+Game.prototype.launchJungle = function() {
+  this.moveAllMinions(JUNGLE_RALLY, JUNGLE);
+  this.timers.jungle = 0;
 };
 
 
-Game.prototype.launchRaid = function() {
-  this.moveAllMinions(RAID_RALLY, RAID);
-  this.timers.raid = 0;
+Game.prototype.launchSiege = function() {
+  this.moveAllMinions(SIEGE_RALLY, SIEGE);
+  this.timers.siege = 0;
 };
 
 
@@ -370,21 +370,21 @@ Game.prototype.moveAllMinions = function(newBuilding, currentBuilding) {
   }
 };
 
-Game.prototype.getExpeditionOutcome = function() {
-  var strength = this.getMinionStatSum(EXPEDITION, STRENGTH);
-  var skill = this.getMinionStatSum(EXPEDITION, SKILL);
+Game.prototype.getJungleOutcome = function() {
+  var strength = this.getMinionStatSum(JUNGLE, STRENGTH);
+  var skill = this.getMinionStatSum(JUNGLE, SKILL);
 
   // TODO: balance
-  var casualty = Math.min(1, this.expeditionLevel ^ 2 / strength);
-  var loot = skill * (120 + 2 * this.expeditionLevel + this.expeditionLevel ^ 2) * (1 - casualty);
+  var casualty = Math.min(1, this.jungleLevel ^ 2 / strength);
+  var loot = skill * (120 + 2 * this.jungleLevel + this.jungleLevel ^ 2) * (1 - casualty);
 
-  this.applyCasualties(EXPEDITION, casualty);
+  this.applyCasualties(JUNGLE, casualty);
   this.addGold(loot);
 
   for (var i = 0; i < MONSTERS.length; i++) {
     var monsterName = MONSTERS[i];
     var monster = this.monsters[monsterName];
-    var diff = monster.level - this.expeditionLevel;
+    var diff = monster.level - this.jungleLevel;
     if (diff > 0) {
       // TODO: balance
       var count = this.monsterCounts[STABLE][monsterName];
@@ -398,14 +398,14 @@ Game.prototype.getExpeditionOutcome = function() {
 
 };
 
-Game.prototype.getRaidOutcome = function() {
-  var damage = this.getMinionStatSum(RAID, DAMAGE) + this.getMonsterStatSum(RAID, DAMAGE);
-  var durability = this.getMinionStatSum(RAID, DURABILITY) + this.getMonsterStatSum(RAID, DURABILITY);
+Game.prototype.getSiegeOutcome = function() {
+  var damage = this.getMinionStatSum(SIEGE, DAMAGE) + this.getMonsterStatSum(SIEGE, DAMAGE);
+  var durability = this.getMinionStatSum(SIEGE, DURABILITY) + this.getMonsterStatSum(SIEGE, DURABILITY);
 
-  var casualty = Math.min(1, this.raidLevel ^ 2 / durability);
-  var loot = damage * (180 + 2 * this.raidLevel + this.raidLevel ^ 2) * (1 - casualty);
+  var casualty = Math.min(1, this.siegeLevel ^ 2 / durability);
+  var loot = damage * (180 + 2 * this.siegeLevel + this.siegeLevel ^ 2) * (1 - casualty);
 
-  this.applyCasualties(RAID, casualty);
+  this.applyCasualties(SIEGE, casualty);
   this.addGold(loot);
 };
 

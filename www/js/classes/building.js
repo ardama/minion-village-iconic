@@ -10,15 +10,15 @@ var ARMORY = 'armory';
 var CAPITOL = 'capitol';
 var LAB = 'laboratory';
 
-var RAID = "raid";
-var RAID_RALLY = "raid rally";
-var EXPEDITION = "expedition";
-var EXPEDITION_RALLY = "expedition rally";
+var SIEGE = "siege";
+var SIEGE_RALLY = "siege rally";
+var JUNGLE = "jungle";
+var JUNGLE_RALLY = "jungle rally";
 
 SPECIAL_PLURALS.push(LIBRARY);
 SPECIAL_PLURALS.push(ARMORY);
-SPECIAL_PLURALS.push(RAID_RALLY);
-SPECIAL_PLURALS.push(EXPEDITION_RALLY);
+SPECIAL_PLURALS.push(SIEGE_RALLY);
+SPECIAL_PLURALS.push(JUNGLE_RALLY);
 
 var BUILDINGS = [
   HUT,
@@ -31,10 +31,10 @@ var BUILDINGS = [
   ARMORY,
   CAPITOL,
   LAB,
-  RAID,
-  RAID_RALLY,
-  EXPEDITION,
-  EXPEDITION_RALLY
+  SIEGE,
+  SIEGE_RALLY,
+  JUNGLE,
+  JUNGLE_RALLY
 ];
 
 var MINION_BUILDINGS = [
@@ -44,23 +44,23 @@ var MINION_BUILDINGS = [
   LIBRARY,
   SHRINE,
   TOWER,
-  RAID,
-  EXPEDITION
+  SIEGE,
+  JUNGLE
 ];
 
-var MINION_TAB_ROWS = [
+var BUILDING_TYPES = [
   'idle',
-  HUT,
   'workable',
-  FARM,
-  WORKSHOP,
-  LIBRARY,
-  SHRINE,
-  TOWER,
   'missions',
-  RAID,
-  EXPEDITION
+  'research'
 ];
+
+var BUILDING_GROUPS = {
+  'idle': [HUT],
+  'workable': [FARM, WORKSHOP, LIBRARY, SHRINE, TOWER],
+  'missions': [SIEGE, JUNGLE],
+  'research': []
+};
 
 var BUILDING_ICONS = {};
 BUILDING_ICONS[HUT] = 'fa-home';
@@ -73,10 +73,10 @@ BUILDING_ICONS[STABLE] = '';
 BUILDING_ICONS[ARMORY] = '';
 BUILDING_ICONS[CAPITOL] = '';
 BUILDING_ICONS[LAB] = 'fa-flask';
-BUILDING_ICONS[RAID] = 'fa-fort-awesome';
-BUILDING_ICONS[RAID_RALLY] = '';
-BUILDING_ICONS[EXPEDITION] = 'fa-globe';
-BUILDING_ICONS[EXPEDITION_RALLY] = '';
+BUILDING_ICONS[SIEGE] = 'fa-fort-awesome';
+BUILDING_ICONS[SIEGE_RALLY] = '';
+BUILDING_ICONS[JUNGLE] = 'fa-tree';
+BUILDING_ICONS[JUNGLE_RALLY] = '';
 
 var Building = function(game, name, slots, cost, data) {
   this.Init(game, name, slots, cost, data);
@@ -158,23 +158,23 @@ Building.initializeBuildings = function(game) {
     {unique: true}
   );
 
-  buildings[RAID] = new Building(
-    game, RAID, 0,
+  buildings[SIEGE] = new Building(
+    game, SIEGE, 0,
     {gold: 0, knowledge: 0, favor: 0},
     {unique: true}
   );
-  buildings[EXPEDITION] = new Building(
-    game, EXPEDITION, 0,
+  buildings[JUNGLE] = new Building(
+    game, JUNGLE, 0,
     {gold: 0, knowledge: 0, favor: 0},
     {unique: true}
   );
-  buildings[RAID_RALLY] = new Building(
-    game, RAID_RALLY, 0,
+  buildings[SIEGE_RALLY] = new Building(
+    game, SIEGE_RALLY, 0,
     {gold: 0, knowledge: 0, favor: 0},
     {unique: true}
   );
-  buildings[EXPEDITION_RALLY] = new Building(
-    game, EXPEDITION_RALLY, 0,
+  buildings[JUNGLE_RALLY] = new Building(
+    game, JUNGLE_RALLY, 0,
     {gold: 0, knowledge: 0, favor: 0},
     {unique: true}
   );

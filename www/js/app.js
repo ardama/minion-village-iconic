@@ -1,4 +1,4 @@
-var version = '0.1.0';
+var version = '0.1.1';
 
 // Minion types
 var MELEE = 'melee';
@@ -99,24 +99,27 @@ var GameApp = angular.module('GameApp', ['ionic'])
   $scope.getImageUrl = function(name, folder) {
     getImageUrl(name, folder)
   };
+
   $scope.$watch(function() {
     return $scope.g.timers.minion;
   }, function(newValue, oldValue) {
     if (window.minionTimer)
       window.minionTimer.draw($scope.g.timers.minion / $scope.g.minionTime);
   });
+
+  $scope.minionGrid;
   $scope.$watch(function() {
-    if (!$scope.firstColumnHeader || $scope.firstColumnHeader.length == 0)
-      $scope.firstColumnHeader = $('.minion-grid-cell.first').last();
-    return $scope.firstColumnHeader.width();
+    if (!$scope.minionGrid || $scope.minionGrid.length == 0)
+      $scope.minionGrid = $('#minion-grid');
+    return $scope.minionGrid.width();
   }, function(newValue, oldValue) {
     for (var i = 0; i < BUILDINGS.length; i++) {
       var buildingName = BUILDINGS[i];
       var icon = BUILDING_ICONS[buildingName];
       var header;
-      if (newValue < 120) {
+      if (newValue < 600) {
         header = '<i class="fa ' + icon + '"></i>';
-      } else if (newValue < 150) {
+      } else if (newValue < 750) {
         header = buildingName.capitalize();
       } else {
         header = buildingName.capitalize() + ' <i class="fa ' + icon + '"></i> ';
@@ -124,6 +127,10 @@ var GameApp = angular.module('GameApp', ['ionic'])
       $scope.rowHeaders[buildingName] = header;
     }
   });
+
+  $scope.rowHeaderCells;
+  $scope.maxHeaderWidth = 0;
+  // TODO: use extra row header space for population bars
 
   $scope.prettyInt = function(num, fixed) {
     return prettyIntBig(num, fixed);
@@ -180,20 +187,13 @@ var GameApp = angular.module('GameApp', ['ionic'])
   };
 
 
-  // TODO: code cleanup
-  // $scope.gridSelectedMinion = '';
-  // $scope.showMinionCell = function(buildingName, minionType) {
-  //   $scope.gridSelectionPartialUrl = 'html/minionCell.html';
-  //   $scope.gridSelectedBuilding = buildingName;
-  //   $scope.gridSelectedMinion = minionType;
-  // };
-
   $scope.rowHeaders = {'idle': 'Idle', 'workable': 'Workable', 'missions': 'Missions'};
   $scope.MONSTERS = MONSTERS;
   $scope.BUILDINGS = BUILDINGS;
+  $scope.BUILDING_TYPES = BUILDING_TYPES;
+  $scope.BUILDING_GROUPS = BUILDING_GROUPS;
   $scope.MINION_TYPES = MINION_TYPES;
   $scope.MINION_BUILDINGS = MINION_BUILDINGS;
-  $scope.MINION_TAB_ROWS = MINION_TAB_ROWS;
 
 }).filter('rawHtml', ['$sce', function($sce){
   return function(val) {
@@ -245,43 +245,66 @@ $(window).load(function() {
       this.ctx.stroke();
   }
   $('#minion-timer-image').css('border-width', '10px');
-  $('.minion-grid-cell').hover(
-    function(event) {
-      var building = $(this).parents('.minion-grid-row').data('building');
-      if (MINION_BUILDINGS.indexOf(building) == -1) {
-        return;
-      }
-      if (!$(this).hasClass('first') && building == 'hut') {
-        return;
-      }
-      $(this).addClass('highlight');
-    }, function(event) {
-      $(this).removeClass('highlight');
-  });
 
-  $('.minion-grid-cell').click(function(event) {
-    var row = $(this).parents('.minion-grid-row');
-    var building = row.data('building');
-    if (MINION_BUILDINGS.indexOf(building) == -1) {
-      return;
-    }
-    var active = $(this).hasClass('active');
-    $('.minion-grid-cell').removeClass('active highlight');
+  // $('.minion-grid-cell').hover(
+  //   function(event) {
+  //     var building = $(this).parents('.minion-grid-row').data('building');
+  //     if (MINION_BUILDINGS.indexOf(building) == -1) {
+  //       return;
+  //     }
+  //     if (!$(this).hasClass('first') && building == 'hut') {
+  //       return;
+  //     }
+  //     $(this).addClass('highlight');
+  //   }, function(event) {
+  //     $(this).removeClass('highlight');
+  // });
+
+  $('.minion-grid-row-primary').click(function(event) {
+    // grab row element and associated building name
+    var $row = $(this).parents('.minion-grid-row');
+    var building = $row.data('building');
+
+    // save active state before clearing
+    var active = $row.hasClass('active');
+
+    // clear all active states
     $('.minion-grid-row').removeClass('active');
-    if (!$(this).hasClass('first') && building == 'hut') {
-      row.find('.first').addClass('active');
-      $scope.showBuildingPopover(this);
-      return;
-    }
+
+    // add active state to associated row
     if (!active) {
-      $(this).addClass('active');
+      $row.addClass('active');
     }
-    $scope.showBuildingPopover(this);
   });
 
   $('.cell-buttons').click(function(event) {
     event.stopPropagation();
   });
+
+  $('.cell-button, .minion-increment-button').click(function(event){
+    if ($(this).hasClass('disabled')) {
+      return;
+    }
+  	//create .ink element if it doesn't exist
+  	if($(this).find(".ripple").length == 0)
+  		$(this).prepend("<span class='ripple'></span>");
+
+  	var $ripple = $(this).find(".ripple");
+  	//incase of quick double clicks stop the previous animation
+  	$ripple.removeClass("animate");
+
+	  var diameter = Math.max($(this).outerWidth(), $(this).outerHeight());
+  	$ripple.css({height: diameter, width: diameter});
+
+  	//get click coordinates
+  	//logic = click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center;
+    var x = event.pageX - $(this).offset().left - diameter/2;
+  	var y = event.pageY - $(this).offset().top - diameter/2;
+
+  	//set the position and add class .animate
+  	$ripple.css({top: y+'px', left: x+'px'}).addClass("animate");
+  });
+
 });
 
 $(window).resize(function() {

@@ -17,5 +17,5 @@ strength: BLOODTHIRSTER
 skill: TRINITY FORCE
 
 // missions
-expedition: SWIFTNESS (speed) FROST QUEENS (loot)
-raid: RIGHTEOUS GLORY (speed) FACE OF THE MOUNTAIN (loot)
+jungle: SWIFTNESS (speed) FROST QUEENS (loot)
+siege: RIGHTEOUS GLORY (speed) FACE OF THE MOUNTAIN (loot)

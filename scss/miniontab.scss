@@ -3,7 +3,7 @@
 // MINION GRID //////////////////////////////////////////
 /////////////////////////////////////////////////////////
 #minion-tab-content {
-  background-color: $gray-dark-8;
+  background-color: $gray-dark-4;
   color: $light-text-primary;
 }
 #minion-grid-container {
@@ -23,7 +23,8 @@
   position: relative;
   float: left;
   width: 100%;
-  background-color: $gray-dark-4;
+  background-color: $gray-dark-2;
+  @include box-shadow(0 0 3px 1px $box-shadow);
 }
 
 .minion-grid-column-header {
@@ -116,13 +117,14 @@
   color: $light-text-secondary;
   font-weight: bold;
   cursor: pointer;
-  border-right: 1px solid $gray-dark-2;
+  overflow: hidden;
+  border-right: 1px solid $gray-dark-1;
 
-  @include transition(color 100ms, background-color 100ms, box-shadow 100ms);
+  @include transition(color 100ms, background-color 350ms, box-shadow 350ms);
 }
 
 .minion-increment-button.top {
-  border-bottom: 1px solid $gray-dark-2;
+  border-bottom: 1px solid $gray-dark-1;
 }
 
 .minion-increment-button-content {
@@ -142,57 +144,219 @@
   color: $light-text-primary;
   background-color: $primary-3;
 
-  @include box-shadow(0 0 3px 0 $box-shadow inset);
+//  @include box-shadow(0 0 3px 0 $box-shadow inset);
 }
 
 .minion-grid-row {
   position: relative;
   float: left;
   width: 100%;
-  background-color: $gray-dark-8;
-  @include transition(background-color 100ms);
-}
+  border-left: 4px solid;
+  border-right: 4px solid;
+  border-color: $transparent;
+  @include transition(border-color 200ms, background-color 200ms, box-shadow 200ms);
 
-.minion-grid-cell {
-  position: relative;
-  float: left;
-  width: 20%;
-  height: 60px;
-  padding: 0 2px;
-
-  text-align: center;
-  line-height: 60px;
-  font-size: 20px;
-
-  cursor: pointer;
-}
-
-.minion-grid-cell.first {
-  text-align: right;
-  font-size: 20px;
-  padding: 0;
-
-  .fa {
-    color: $light-text-primary;
-    width: 30px;
-    text-align: center;
+  .minion-grid-cell {
+    position: relative;
+    float: left;
+    width: 20%;
+    @include transition(height 200ms, line-height 200ms, font-size 200ms);
   }
+
+  .minion-grid-row-primary {
+    float: left;
+    width: 100%;
+    @include transition(background-color 100ms);
+
+    .minion-grid-cell {
+      height: 70px;
+      padding: 0 2px;
+
+      text-align: center;
+      line-height: 70px;
+      font-size: 20px;
+
+      cursor: pointer;
+    }
+
+    .minion-grid-cell.first {
+      text-align: right;
+      padding: 0;
+      text-transform: uppercase;
+      font-size: 16px;
+
+      .fa {
+        color: $light-text-primary;
+        font-size: 18px;
+        width: 30px;
+        text-align: center;
+        @include transition(font-size 200ms);
+      }
+    }
+  }
+
+  .minion-grid-row-secondary {
+    float: left;
+    width: 100%;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    @include transition(visibility 200ms, height 200ms);
+
+    .minion-grid-cell {
+      float: left;
+      height: 50px;
+
+      text-align: center;
+      line-height: 50px;
+      font-size: 16px;
+
+      padding: 2px 1% 6px 1%;
+
+      .cell-buttons {
+        width: 100%;
+        height: 100%;
+        cursor: default;
+        overflow: hidden;
+      }
+
+      .cell-button {
+        float: left;
+        position: relative;
+        width: 50%;
+        height: 42px;
+        line-height: 42px;
+        font-size: 14px;
+
+        border-radius: 2px;
+        color: $light-text-secondary;
+        cursor: pointer;
+        overflow: hidden;
+
+        @include transition(color 100ms, background-color 100ms, border-color 100ms);
+      }
+
+      .cell-button.disabled,
+      .cell-button.disabled:hover,
+      .cell-button.disabled:active {
+        color: $light-text-disabled;
+        cursor: default;
+      }
+
+      .add-minion-button {
+      }
+
+      .remove-minion-button {
+      }
+    }
+
+    .minion-grid-cell.first.all {
+      width: 40%;
+
+      .cell-content {
+        float: left;
+        width: 75%;
+        height: 42px;
+
+        text-align: center;
+        line-height: 42px;
+        color: $light-text-secondary;
+      }
+      @media screen and (max-width: 768px) {
+        .building-capacity {
+          display: none;
+        }
+      }
+
+      .cell-buttons {
+        width: 25%;
+      }
+      .cell-button {
+        width: 100%;
+        float: right;
+      }
+    }
+  }
+
+  .cell-content {
+    width: 100%;
+    height: 100%;
+
+    @include transition(background-color 100ms, color 100ms);
+
+    .cell-bar {
+      float: left;
+      margin-top: 27px;
+      margin-left: 5%;
+      width: 90%;
+      height: 16px;
+
+      border-radius: 8px;
+
+      background-color: $white;
+      overflow: hidden;
+      @include transition(background-color 200ms, margin-top 200ms);
+    }
+
+    .cell-bar.disabled {
+      background-color: $light-text-disabled;
+    }
+
+    .cell-bar-fill {
+      float: left;
+      height: 100%;
+
+      background-color: $tertiary-2;
+      @include transition(background-color 200ms, width 200ms);
+    }
+
+    .cell-bar-fill[data-percent="100.0"] {
+      background-color: $tertiary-2;
+    }
+  }
+
 }
 
-.cell-content {
-  width: 100%;
-  height: 100%;
-
-  @include transition(background-color 100ms, color 100ms);
+.minion-grid-row:hover {
+  border-color: $primary-4;
 }
 
-.minion-grid-cell.highlight .cell-content {
-  background-color: $gray-mid-0;
-}
+.minion-grid-row.active {
+  border-color: $primary-0;
+  background-color: $gray-dark-2;
+  @include box-shadow(0 0 3px 0 $box-shadow inset);
 
-.minion-grid-cell.active .cell-content {
-  background-color: $primary-0;
-  color: $light-text-primary;
+  .minion-grid-row-primary {
+    color: $light-text-primary;
+
+    .minion-grid-cell {
+      height: 50px;
+      padding: 0 2px;
+
+      text-align: center;
+      line-height: 50px;
+      font-size: 20px;
+
+      cursor: pointer;
+
+      .fa {
+        font-size: 20px;
+      }
+
+      .cell-bar {
+        margin-top: 17px;
+      }
+    }
+    .minion-grid-cell.first {
+      text-align: right;
+      padding: 0;
+    }
+  }
+
+  .minion-grid-row-secondary {
+    visibility: visible;
+    height: 50px;
+  }
 }
 
 .minion-grid-cell.first .cell-content {
@@ -200,9 +364,9 @@
 }
 
 
-.minion-grid-row[data-building="idle"],
-.minion-grid-row[data-building="workable"],
-.minion-grid-row[data-building="missions"] {
+.minion-grid-row.header {
+  display: none;
+  border: none;
 
   .minion-grid-cell {
     line-height: 24px;
@@ -214,7 +378,7 @@
   .minion-grid-cell.first {
     width: 100%;
     border-top: 1px solid $gray-dark-2;
-    border-bottom: 1px solid $gray-dark-2;
+    // border-bottom: 1px solid $gray-dark-2;
     background-color: $gray-dark-4;
   }
 
@@ -226,68 +390,12 @@
 
   }
 }
-
-.cell-buttons {
-  position: absolute;
-  z-index: 1;
-  visibility: hidden;
-  opacity: 0;
-  left: 100%;
-  top: 0;
-
-  width: 42px;
-  height: 100%;
-  cursor: default;
-  @include transition(visibility 100ms, opacity 100ms);
+.minion-grid-section[data-type="research"] {
+  display: none;
 }
 
-.cell-button {
-  position: absolute;
-  left: 2px;
 
-  width: 40px;
-  height: 28px;
 
-  line-height: 28px;
-  font-size: 12px;
-
-  color: $light-text-secondary;
-  background-color: $primary-3;
-  opacity: .85;
-  cursor: pointer;
-
-  @include box-shadow(0 1px 3px 0 $box-shadow-light);
-  @include transition(color 100ms, background-color 100ms, opacity 100ms, box-shadow 100ms);
-}
-
-.cell-button:hover {
-  color: $light-text-primary;
-  opacity: 1;
-  @include box-shadow(0 1px 4px 0 $box-shadow-light);
-}
-
-.cell-button:active {
-  color: $light-text-disabled;
-  opacity: 1;
-  @include box-shadow(none);
-}
-
-.cell-button.disabled,
-.cell-button.disabled:hover,
-.cell-button.disabled:active {
-  color: $light-text-disabled;
-  background-color: $primary-4;
-  opacity: .3;
-  cursor: default;
-}
-
-.add-minion-button {
-  top: 0;
-}
-
-.remove-minion-button {
-  bottom: 0;
-}
 
 .first .remove-minion-button {
   left: 2px;
@@ -309,36 +417,6 @@
 .minion-grid-cell.active .cell-buttons {
   visibility: visible;
   opacity: 1;
-}
-
-.cell-bar {
-  float: left;
-  margin-top: 22px;
-  margin-left: 5%;
-  width: 90%;
-  height: 16px;
-
-  border-radius: 8px;
-
-  background-color: $white;
-  overflow: hidden;
-  @include transition(background-color 200ms);
-}
-
-.cell-bar.disabled {
-  background-color: $light-text-disabled;
-}
-
-.cell-bar-fill {
-  float: left;
-  height: 100%;
-
-  background-color: $tertiary-2;
-  @include transition(background-color 200ms, width 200ms);
-}
-
-.cell-bar-fill[data-percent="100.0"] {
-  background-color: $tertiary-2;
 }
 
 /////////////////////////////////////////////////////////
