@@ -1,4 +1,4 @@
-var version = '0.1.1';
+var version = '0.0.20';
 
 // Minion types
 var MELEE = 'melee';
@@ -119,12 +119,16 @@ var GameApp = angular.module('GameApp', ['ionic'])
       var header;
       if (newValue < 600) {
         header = '<i class="fa ' + icon + '"></i>';
-      } else if (newValue < 750) {
-        header = buildingName.capitalize();
+        $scope.rowHeaderCapacityShown = false;
       } else {
-        header = buildingName.capitalize() + ' <i class="fa ' + icon + '"></i> ';
+        $scope.rowHeaderCapacityShown = true;
+        if (newValue < 768) {
+          header = buildingName;
+        } else {
+          header = buildingName + ' <i class="fa ' + icon + '"></i> ';
+        }
       }
-      $scope.rowHeaders[buildingName] = header;
+      $scope.rowHeaderText[buildingName] = header;
     }
   });
 
@@ -187,7 +191,8 @@ var GameApp = angular.module('GameApp', ['ionic'])
   };
 
 
-  $scope.rowHeaders = {'idle': 'Idle', 'workable': 'Workable', 'missions': 'Missions'};
+  $scope.rowHeaderText = {'idle': 'Idle', 'workable': 'Workable', 'missions': 'Missions'};
+  $scope.rowHeaderCapacityShown = false;
   $scope.MONSTERS = MONSTERS;
   $scope.BUILDINGS = BUILDINGS;
   $scope.BUILDING_TYPES = BUILDING_TYPES;
@@ -264,6 +269,9 @@ $(window).load(function() {
     // grab row element and associated building name
     var $row = $(this).parents('.minion-grid-row');
     var building = $row.data('building');
+    if (building == 'hut') {
+      return;
+    }
 
     // save active state before clearing
     var active = $row.hasClass('active');

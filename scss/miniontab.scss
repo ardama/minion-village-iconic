@@ -29,29 +29,21 @@
 
 .minion-grid-column-header {
   position: relative;
-  float: left;
   width: 20%;
-  height: 100%;
-  margin: auto;
 }
-
-.minion-grid-column-header.first {
-  min-height: 70px;
-}
-
 
 #minion-image-all {
   position: absolute;
   left: 50%;
   top: 0px;
   width: calc(80% - 16px);
-  max-width: 60px;
+  max-width: 52px;
   height: 100%;
 
   img {
     position: absolute;
     width: 45%;
-    max-width: 28px;
+    max-width: 24px;
     border-radius: 50%;
   }
 
@@ -61,17 +53,17 @@
   }
 
   img[data-index="2"] {
-    bottom: 12px;
+    bottom: 26px;
     left: -50%
   }
   img[data-index="3"] {
-    bottom: 12px;
+    bottom: 26px;
     left: 0;
   }
   img.spacer {
     display: block;
     width: 100%;
-    width: 60px;
+    width: 52px;
   }
 
 }
@@ -80,12 +72,12 @@
   float: left;
   width: 100%;
 
-  padding: 12px;
+  padding: 12px 12px 0 12px;
 }
 
 .minion-header-image img {
   display: block;
-  max-width: 60px;
+  max-width: 52px;
   width: 80%;
   border-radius: 50%;
 
@@ -93,6 +85,14 @@
   margin-right: auto;
 
   @include box-shadow(0 0 3px $box-shadow);
+}
+
+.minion-header-content text {
+  float: left;
+  width: 100%;
+  padding: 4px 0;
+  text-align: center;
+  font-size: 13px;
 }
 
 .minion-header-image img.blank {
@@ -143,8 +143,6 @@
 .minion-increment-button.active {
   color: $light-text-primary;
   background-color: $primary-3;
-
-//  @include box-shadow(0 0 3px 0 $box-shadow inset);
 }
 
 .minion-grid-row {
@@ -166,6 +164,7 @@
   .minion-grid-row-primary {
     float: left;
     width: 100%;
+    cursor: pointer;
     @include transition(background-color 100ms);
 
     .minion-grid-cell {
@@ -175,8 +174,6 @@
       text-align: center;
       line-height: 70px;
       font-size: 20px;
-
-      cursor: pointer;
     }
 
     .minion-grid-cell.first {
@@ -194,6 +191,7 @@
       }
     }
   }
+
 
   .minion-grid-row-secondary {
     float: left;
@@ -223,6 +221,7 @@
       .cell-button {
         float: left;
         position: relative;
+        z-index: 1;
         width: 50%;
         height: 42px;
         line-height: 42px;
@@ -233,13 +232,14 @@
         cursor: pointer;
         overflow: hidden;
 
-        @include transition(color 100ms, background-color 100ms, border-color 100ms);
+        @include transition(color 200ms, background-color 200ms, border-color 200ms);
       }
 
       .cell-button.disabled,
       .cell-button.disabled:hover,
       .cell-button.disabled:active {
         color: $light-text-disabled;
+        border-color: $light-text-disabled;
         cursor: default;
       }
 
@@ -258,14 +258,9 @@
         width: 75%;
         height: 42px;
 
-        text-align: center;
+        text-align: right;
         line-height: 42px;
         color: $light-text-secondary;
-      }
-      @media screen and (max-width: 768px) {
-        .building-capacity {
-          display: none;
-        }
       }
 
       .cell-buttons {
@@ -282,7 +277,7 @@
     width: 100%;
     height: 100%;
 
-    @include transition(background-color 100ms, color 100ms);
+    @include transition(background-color 100ms, color 200ms);
 
     .cell-bar {
       float: left;
@@ -319,6 +314,10 @@
 
 .minion-grid-row:hover {
   border-color: $primary-4;
+
+  .minion-grid-cell {
+    color: $light-text-primary;
+  }
 }
 
 .minion-grid-row.active {
@@ -337,8 +336,6 @@
       line-height: 50px;
       font-size: 20px;
 
-      cursor: pointer;
-
       .fa {
         font-size: 20px;
       }
@@ -356,6 +353,21 @@
   .minion-grid-row-secondary {
     visibility: visible;
     height: 50px;
+  }
+}
+
+.minion-grid-row[data-building="hut"] {
+  @include box-shadow(0 0 3px 0 $box-shadow);
+
+  .minion-grid-row-primary {
+    cursor: default;
+  }
+}
+.minion-grid-row[data-building="hut"]:hover {
+  border-color: $transparent;
+
+  .minion-grid-cell {
+    color: $light-text-secondary;
   }
 }
 

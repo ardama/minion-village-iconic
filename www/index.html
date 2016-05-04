@@ -220,34 +220,46 @@
               </div>
               <div class="minion-grid-column-header all">
                 <div class="minion-header-border-left"></div>
-                <div class="minion-header-image">
-                  <img class="blank" src="img/blank.png" class="spacer"/>
-                  <div id="minion-image-all">
-                    <img src="img/monster/Melee_Minion.png" data-index="1"/>
-                    <img src="img/monster/Caster_Minion.png" data-index="2"/>
-                    <img src="img/monster/Siege_Minion.png" data-index="3"/>
+                <div class="minion-header-content">
+                  <div class="minion-header-image">
+                    <img class="blank" src="img/blank.png" class="spacer"/>
+                    <div id="minion-image-all">
+                      <img src="img/monster/Melee_Minion.png" data-index="1"/>
+                      <img src="img/monster/Caster_Minion.png" data-index="2"/>
+                      <img src="img/monster/Siege_Minion.png" data-index="3"/>
+                    </div>
                   </div>
+                  <text>TOTAL</text>
                 </div>
               </div>
               <div class="minion-grid-column-header">
                 <div class="minion-header-border-left"></div>
                 <div class="minion-header-border-right"></div>
-                <div class="minion-header-image">
-                  <img src="img/monster/Melee_Minion.png">
+                <div class="minion-header-content">
+                  <div class="minion-header-image">
+                    <img src="img/monster/Melee_Minion.png">
+                  </div>
+                  <text>MELEE</text>
                 </div>
               </div>
               <div class="minion-grid-column-header">
                 <div class="minion-header-border-left"></div>
                 <div class="minion-header-border-right"></div>
-                <div class="minion-header-image">
-                  <img src="img/monster/Caster_Minion.png">
+                <div class="minion-header-content">
+                  <div class="minion-header-image">
+                    <img src="img/monster/Caster_Minion.png">
+                  </div>
+                  <text>CASTER</text>
                 </div>
               </div>
               <div class="minion-grid-column-header">
                 <div class="minion-header-border-left"></div>
                 <div class="minion-header-border-right"></div>
-                <div class="minion-header-image">
-                  <img src="img/monster/Siege_Minion.png">
+                <div class="minion-header-content">
+                  <div class="minion-header-image">
+                    <img src="img/monster/Siege_Minion.png">
+                  </div>
+                  <text>SIEGE</text>
                 </div>
               </div>
             </div>
@@ -255,14 +267,14 @@
             <div ng-repeat="buildingType in BUILDING_TYPES" class="minion-grid-section" data-type="{{buildingType}}">
               <div class="minion-grid-row header">
                 <div class="minion-grid-cell first">
-                  <div class="cell-content" ng-bind-html="rowHeaders[buildingType] | rawHtml">
+                  <div class="cell-content" ng-bind-html="rowHeaderText[buildingType] | rawHtml">
                   </div>
                 </div>
               </div>
               <div ng-repeat="buildingName in BUILDING_GROUPS[buildingType]" class="minion-grid-row building {{buildingType}}" data-building="{{buildingName}}" ng-click="showMinionRow(buildingName)">
                 <div class="minion-grid-row-primary">
                   <div class="minion-grid-cell first">
-                    <div class="cell-content" ng-bind-html="rowHeaders[buildingName] | rawHtml">
+                    <div class="cell-content" ng-bind-html="rowHeaderText[buildingName] | rawHtml">
                     </div>
                   </div>
                   <div class="minion-grid-cell all">
@@ -283,7 +295,7 @@
                 <div class="minion-grid-row-secondary">
                   <div class="minion-grid-cell first all">
                     <div class="cell-content">
-                      {{g.minions[buildingName].all}} <text class="building-capacity">/ {{g.buildings[buildingName].capacity}} </text><i class="fa fa-user"></i>
+                      {{g.minions[buildingName].all}} <text ng-if="rowHeaderCapacityShown">/ {{g.buildings[buildingName].capacity}} </text><i class="fa fa-user"></i>
                     </div>
                     <div class="cell-buttons">
                       <div class="remove-minion-button cell-button"
@@ -296,12 +308,12 @@
                   <div ng-repeat="minionType in MINION_TYPES" class="minion-grid-cell">
                     <div class="cell-buttons">
                       <div class="add-minion-button cell-button"
-                           ng-class="g.buildings[buildingName].hasSpace ? '' : 'disabled'"
+                           ng-class="g.buildings[buildingName].hasSpace && g.minions.hut[minionType] > 0 ? '' : 'disabled'"
                            ng-click="g.moveMinions(minionIncrement, minionType, buildingName)">
                         <i class="fa fa-plus"></i>
                       </div>
                       <div class="remove-minion-button cell-button"
-                           ng-class="g.buildings[buildingName].isEmpty ? 'disabled' : ''"
+                           ng-class="g.minions[buildingName][minionType] > 0 ? '' : 'disabled'"
                            ng-click="g.moveMinions(minionIncrement, minionType, null, buildingName)">
                         <i class="fa fa-minus"></i>
                       </div>
