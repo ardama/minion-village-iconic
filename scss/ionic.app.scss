@@ -36,6 +36,11 @@ body {
 /////////////////////////////////////////////////////////
 // ION ELEMENTS /////////////////////////////////////////
 /////////////////////////////////////////////////////////
+.bar,
+.tabs {
+  border: none;
+}
+
 ion-header-bar h1,
 ion-header-bar h1,
 ion-header-bar h3,
@@ -103,7 +108,7 @@ ion-content {
 
 .cell-button .ripple {
 	background: $light-text-primary;
-  opacity: .2;
+  opacity: .1;
 }
 
 .minion-increment-button .ripple {
@@ -112,7 +117,7 @@ ion-content {
 }
 
 .ripple.animate {
-  animation: ripple 0.35s linear;
+  animation: ripple 0.5s linear;
 }
 
 .minion-increment-button .ripple.animate {

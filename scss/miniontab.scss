@@ -102,6 +102,7 @@
 #minion-increment-buttons {
   position: absolute;
   float: left;
+  padding-bottom: 2px;
 
   width: 100%;
   height: 100%;
@@ -109,26 +110,32 @@
 
 .minion-increment-button {
   position: relative;
+  z-index: 1;
   float: left;
-  width: 50%;
-  height: 50%;
-
+  width: calc(50% - 2px);
+  height: calc(50% - 2px);
+  margin: 2px 0 0 2px;
+  border-radius: 2px;
   text-align: center;
   color: $light-text-secondary;
   font-weight: bold;
   cursor: pointer;
   overflow: hidden;
-  border-right: 1px solid $gray-dark-1;
 
   @include transition(color 100ms, background-color 350ms, box-shadow 350ms);
 }
 
+.minion-increment-button:hover,
+.minion-increment-button:active {
+  background-color: $gray-dark-4;
+}
+
 .minion-increment-button.top {
-  border-bottom: 1px solid $gray-dark-1;
 }
 
 .minion-increment-button-content {
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
@@ -235,12 +242,17 @@
         @include transition(color 200ms, background-color 200ms, border-color 200ms);
       }
 
+      .cell-button:hover,
+      .cell-button:active {
+        background-color: $gray-dark-4;
+      };
+
       .cell-button.disabled,
       .cell-button.disabled:hover,
       .cell-button.disabled:active {
         color: $light-text-disabled;
-        border-color: $light-text-disabled;
         cursor: default;
+        background-color: $transparent;
       }
 
       .add-minion-button {
@@ -334,10 +346,10 @@
 
       text-align: center;
       line-height: 50px;
-      font-size: 20px;
+      font-size: 19px;
 
       .fa {
-        font-size: 20px;
+        font-size: 19px;
       }
 
       .cell-bar {

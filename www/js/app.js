@@ -1,4 +1,4 @@
-var version = '0.0.20';
+var version = '0.0.21';
 
 // Minion types
 var MELEE = 'melee';
@@ -290,15 +290,22 @@ $(window).load(function() {
   });
 
   $('.cell-button, .minion-increment-button').click(function(event){
-    if ($(this).hasClass('disabled')) {
+    if ($(this).hasClass('disabled') || $(this).hasClass('active')) {
       return;
     }
-  	//create .ink element if it doesn't exist
-  	if($(this).find(".ripple").length == 0)
-  		$(this).prepend("<span class='ripple'></span>");
 
-  	var $ripple = $(this).find(".ripple");
-  	//incase of quick double clicks stop the previous animation
+    var limit = $(this).hasClass('cell-button') ? 5 : 1;
+
+    var $ripple;
+    var $ripples = $(this).find(".ripple");
+  	if($ripples.length >= limit) {
+      $ripple = $ripples.first();
+      $ripple.detach();
+    } else {
+      $ripple = $("<span class='ripple'></span>");
+    }
+
+    $(this).append($ripple);
   	$ripple.removeClass("animate");
 
 	  var diameter = Math.max($(this).outerWidth(), $(this).outerHeight());
