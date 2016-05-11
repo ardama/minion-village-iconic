@@ -115,7 +115,7 @@
   width: calc(50% - 2px);
   height: calc(50% - 2px);
   margin: 2px 0 0 2px;
-  border-radius: 2px;
+  border-radius: 1px;
   text-align: center;
   color: $light-text-secondary;
   font-weight: bold;
@@ -381,6 +381,10 @@
   .minion-grid-cell {
     color: $light-text-secondary;
   }
+}
+
+.minion-grid-row[data-building="barracks"] {
+  display: none;
 }
 
 .minion-grid-cell.first .cell-content {

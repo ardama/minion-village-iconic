@@ -1,0 +1,79 @@
+#building-tab-content {
+  background-color: $gray-dark-4;
+  color: $light-text-primary;
+  width: 100%;
+}
+
+#building-tab-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#building-list-container {
+  float: left;
+  flex-grow: 1;
+  width: 60%;
+  min-width: calc(.6 * 768px);
+  color: $light-text-secondary;
+}
+
+#building-list {
+  float: left;
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.building-list-section {
+  float: left;
+  width: 100%;
+  flex-grow: 1;
+
+  .building-list-section-header {
+    display: none;
+    float: left;
+    width: 100%;
+    line-height: 20px;
+    font-size: 16px;
+    padding: 8px;
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .building-list-item {
+    float: left;
+    width: 100%;
+
+    padding: 8px;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid $gray-dark-2;
+
+    cursor: pointer;
+
+    .building-name {
+      text-transform: uppercase;
+
+      i {
+        width: 30px;
+        text-align: center;
+        color: $light-text-primary;
+      }
+    }
+  }
+}
+
+.building-list-section[data-type="missions"] {
+  display: none;
+}
+
+#building-info-container {
+  float: left;
+  flex-grow: 1;
+  width: 40%;
+  min-width: calc(.4 * 768px);
+  background-color: $gray-dark-2;
+
+}

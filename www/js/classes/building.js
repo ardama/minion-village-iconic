@@ -5,7 +5,7 @@ var LIBRARY = 'library';
 var SHRINE = 'shrine';
 var TOWER = 'tower';
 
-var STABLE = 'stable';
+var BARRACKS = 'barracks';
 var ARMORY = 'armory';
 var CAPITOL = 'capitol';
 var LAB = 'laboratory';
@@ -27,7 +27,7 @@ var BUILDINGS = [
   LIBRARY,
   SHRINE,
   TOWER,
-  STABLE,
+  BARRACKS,
   ARMORY,
   CAPITOL,
   LAB,
@@ -49,17 +49,17 @@ var MINION_BUILDINGS = [
 ];
 
 var BUILDING_TYPES = [
-  'idle',
+  'housing',
   'workable',
   'missions',
   'research'
 ];
 
 var BUILDING_GROUPS = {
-  'idle': [HUT],
+  'housing': [HUT, BARRACKS],
   'workable': [FARM, WORKSHOP, LIBRARY, SHRINE, TOWER],
   'missions': [SIEGE, JUNGLE],
-  'research': []
+  'research': [CAPITOL, ARMORY, LAB]
 };
 
 var BUILDING_ICONS = {};
@@ -69,11 +69,11 @@ BUILDING_ICONS[WORKSHOP] = 'ion-hammer';
 BUILDING_ICONS[LIBRARY] = 'fa-book';
 BUILDING_ICONS[SHRINE] = 'fa-bolt';
 BUILDING_ICONS[TOWER] = 'fa-shield';
-BUILDING_ICONS[STABLE] = '';
-BUILDING_ICONS[ARMORY] = '';
-BUILDING_ICONS[CAPITOL] = '';
+BUILDING_ICONS[BARRACKS] = 'fa-fort-awesome';
+BUILDING_ICONS[ARMORY] = 'fa-industry';
+BUILDING_ICONS[CAPITOL] = 'fa-bank';
 BUILDING_ICONS[LAB] = 'fa-flask';
-BUILDING_ICONS[SIEGE] = 'fa-fort-awesome';
+BUILDING_ICONS[SIEGE] = 'fa-bomb';
 BUILDING_ICONS[SIEGE_RALLY] = '';
 BUILDING_ICONS[JUNGLE] = 'fa-tree';
 BUILDING_ICONS[JUNGLE_RALLY] = '';
@@ -137,8 +137,8 @@ Building.initializeBuildings = function(game) {
     {rate: 1}
   );
 
-  buildings[STABLE] = new Building(
-    game, STABLE, 0,
+  buildings[BARRACKS] = new Building(
+    game, BARRACKS, 0,
     {gold: 100, knowledge: 0, favor: 0},
     {unique: true}
   );

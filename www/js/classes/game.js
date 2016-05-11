@@ -87,7 +87,7 @@ Game.prototype.Init = function(scope) {
   // Monsters
   this.monsters = Monster.initializeMonsters(this);
   this.monsterCounts = {};
-  this.monsterCounts[STABLE] = {};
+  this.monsterCounts[BARRACKS] = {};
   this.monsterCounts[SIEGE] = {};
   this.monsterCounts[SIEGE_RALLY] = {};
   this.monsterCounts[TOWER] = {};
@@ -387,9 +387,9 @@ Game.prototype.getJungleOutcome = function() {
     var diff = monster.level - this.jungleLevel;
     if (diff > 0) {
       // TODO: balance
-      var count = this.monsterCounts[STABLE][monsterName];
+      var count = this.monsterCounts[BARRACKS][monsterName];
       var found = Math.floor(Math.random() * 1.5 * diff);
-      this.monsterCounts[STABLE][monsterName] = count ? count + found : found;
+      this.monsterCounts[BARRACKS][monsterName] = count ? count + found : found;
     } else {
       break;
     }
